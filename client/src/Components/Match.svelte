@@ -3,18 +3,21 @@
 
   export let matchSummary;
   export let matchId;
-  $: if (matchSummary) {
-    console.log(matchSummary.valvePlayers);
-  }
+
+  const getMatchDetails = async () => {
+    const response = await fetch(
+      `http://localhost:8080/matches/details/${matchId}`,
+    );
+    const matchDetails = await response.json();
+    console.log(matchDetails);
+  };
 </script>
 
 <div>
-  <div class="matchId">{matchId}</div>
-  {#key matchSummary}
-    {#if matchSummary}
-      <Players players={matchSummary.valvePlayers} />
-    {/if}
-  {/key}
+  <div on:click={getMatchDetails} class="matchId">{matchId}</div>
+  {#if matchSummary}
+    <Players players={matchSummary.valvePlayers} />
+  {/if}
 </div>
 
 <style>
