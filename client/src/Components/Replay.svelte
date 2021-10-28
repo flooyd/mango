@@ -4,11 +4,13 @@
 
   let error = '';
   let buttonDisabled = false;
+  let matchSummary = null;
 
   onMount(async () => {
     try {
-      const response = await fetch(`http://localhost:8080/matches/${matchId}`);
+      const response = await fetch(`http://localhost:8080/matches/summary/${matchId}`);
       const matchSummary = await response.json();
+      console.log(matchSummary);
     } catch (err) {
       error = err;
     }
@@ -21,7 +23,8 @@
       method: 'POST'
     });
 
-    console.log(response);
+    matchSummary = await response.json();
+    console.log(matchSummary)
     } catch (error) {
       console.error(error);
     }

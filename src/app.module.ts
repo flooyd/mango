@@ -7,9 +7,14 @@ import { ReplaysService } from './replays/replays.service';
 import { MatchesController } from './matches/matches.controller';
 import { MatchesService } from './matches/matches.service';
 import { MatchDetails } from './Entities/matchdetails.entity';
+import { MatchSummary } from './Entities/matchsummary.entity';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), TypeOrmModule.forFeature([MatchDetails])],
+  imports: [
+    TypeOrmModule.forRoot(),
+    TypeOrmModule.forFeature([MatchDetails]),
+    TypeOrmModule.forFeature([MatchSummary]),
+  ],
   controllers: [AppController, ReplaysController, MatchesController],
   providers: [AppService, ReplaysService, MatchesService],
 })

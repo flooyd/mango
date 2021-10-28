@@ -11,34 +11,4 @@ export class MatchDetails {
 
   @Column()
   match_content: string;
-
-  @Column()
-  radiantHero0: string;
-
-  @Column()
-  radiantHero1: string;
-
-  @Column()
-  radiantHero2: string;
-
-  @Column()
-  radiantHero3: string;
-
-  @Column()
-  radiantHero4: string;
-
-  @Column()
-  direHero0: string;
-
-  @Column()
-  direHero1: string;
-
-  @Column()
-  direHero2: string;
-
-  @Column()
-  direHero3: string;
-
-  @Column()
-  direHero4: string;
 }
