@@ -39,7 +39,7 @@
       });
 
       matchSummary = await response.json();
-      processMatchSummary(matchSummary);
+      processMatchSummary();
 
       
     } catch (error) {
