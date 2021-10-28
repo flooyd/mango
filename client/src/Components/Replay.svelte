@@ -1,5 +1,7 @@
 <script>
   import { onMount } from 'svelte';
+  import Match from '../Components/Match.svelte';
+  import util from '../util/util';
   export let matchId;
 
   let error = '';
@@ -8,10 +10,22 @@
 
   onMount(async () => {
     try {
-      const response = await fetch(`http://localhost:8080/matches/summary/${matchId}`);
-      const matchSummary = await response.json();
+      const response = await fetch(
+        `http://localhost:8080/matches/summary/${matchId}`,
+      );
+      matchSummary = await response.json();
+      matchSummary = { ...matchSummary, valvePlayers: [] };
+      for (const key in matchSummary) {
+        if (key.includes('Hero')) {
+          matchSummary['valvePlayers'].push(
+            util.getValveName(matchSummary[key]),
+          );
+        }
+      }
+      matchSummary = matchSummary;
       console.log(matchSummary);
     } catch (err) {
+      console.error(err);
       error = err;
     }
   });
@@ -20,11 +34,12 @@
     buttonDisabled = true;
     try {
       const response = await fetch(`http://localhost:8080/replays/${matchId}`, {
-      method: 'POST'
-    });
+        method: 'POST',
+      });
 
-    matchSummary = await response.json();
-    console.log(matchSummary)
+      matchSummary = await response.json();
+
+      console.log(matchSummary);
     } catch (error) {
       console.error(error);
     }
@@ -32,7 +47,7 @@
 </script>
 
 <div class="replay">
-  {matchId}
+  <Match {matchId} {matchSummary} />
   {#if error}
     <button disabled={buttonDisabled} on:click={parseReplay}
       >Parse Replay</button
@@ -42,8 +57,6 @@
 
 <style>
   .replay {
-    border: 1px solid black;
-    width: 600px;
     margin-bottom: 20px;
   }
 </style>

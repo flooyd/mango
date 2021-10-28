@@ -28,11 +28,6 @@ export class ReplaysService {
 
   async saveParsedReplay(matchId: string) {
     const file = fs.readFileSync(`${this.replayDirectory}/${matchId}.dem`);
-    const options = {
-      url: 'http://localhost:5600',
-      body: file,
-      encoding: null,
-    };
 
     const post = bent('http://localhost:5600', 'POST', 'buffer', 200);
     try {
