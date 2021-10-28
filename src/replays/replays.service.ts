@@ -52,6 +52,11 @@ export class ReplaysService {
 
       dataToSaveForSummary.gameWinner = parsedData.matchInfo.gameWinner_;
       dataToSaveForSummary.endTime = parsedData.matchInfo.endTime_;
+
+      const kills = this.getKills(dataToSaveForSummary, parsedData);
+      dataToSaveForSummary.radiantKills = kills.radiantKills.length;
+      dataToSaveForSummary.direKills = kills.direKills.length;
+
       const inserted = await this.matchSummaryRepo.save(dataToSaveForSummary);
       await this.matchDetailsRepo.save({
         match_id: matchId,
@@ -62,6 +67,57 @@ export class ReplaysService {
     } catch (err) {
       throw err;
     }
+  }
+
+  getKills(dataToSaveForSummary, parsedData) {
+    let kills = parsedData['DOTA_COMBATLOG_DEATH'];
+    kills = kills.filter((k) => k.attackerhero && k.targethero);
+
+    let radiantKills = kills.filter((k) => {
+      if (dataToSaveForSummary['radiantHero0'] === k.attackername) {
+        return k;
+      }
+      if (dataToSaveForSummary['radiantHero1'] === k.attackername) {
+        return k;
+      }
+      if (dataToSaveForSummary['radiantHero2'] === k.attackername) {
+        return k;
+      }
+      if (dataToSaveForSummary['radiantHero3'] === k.attackername) {
+        return k;
+      }
+      if (dataToSaveForSummary['radiantHero4'] === k.attackername) {
+        return k;
+      }
+    });
+    console.log(radiantKills);
+
+    radiantKills = radiantKills.filter(k => k.attackername !== k.targetname);
+
+    let direKills = kills.filter((k) => {
+      if (dataToSaveForSummary['direHero0'] === k.attackername) {
+        return k;
+      }
+      if (dataToSaveForSummary['direHero1'] === k.attackername) {
+        return k;
+      }
+      if (dataToSaveForSummary['direHero2'] === k.attackername) {
+        return k;
+      }
+      if (dataToSaveForSummary['direHero3'] === k.attackername) {
+        return k;
+      }
+      if (dataToSaveForSummary['direHero4'] === k.attackername) {
+        return k;
+      }
+    });
+
+    direKills = direKills.filter(k => k.attackername !== k.targetname);
+
+    return {
+      radiantKills,
+      direKills,
+    };
   }
 
   myParse(opendotaArray: string[]) {
@@ -80,10 +136,15 @@ export class ReplaysService {
 
       data[json.type].push(json);
     }
-    console.log('endmyparse');
+    console.log('end');
     return data;
   }
 }
+
+const getTypes = (data) => {
+  const types = Array.from(new Set(data.map((item: any) => item.type)));
+  console.log(types);
+};
 
 const getMatchInfo = (o) => {
   o.key = JSON.parse(o.key);
