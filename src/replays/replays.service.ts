@@ -35,7 +35,7 @@ export class ReplaysService {
       const matchContent = response.toString();
       const matchContent_array = matchContent.split('\n');
       const parsedData = await this.myParse(matchContent_array);
-      const dataToSaveForSummary = {
+      const dataToSaveForSummary: any = {
         match_id: matchId,
       };
 
@@ -49,6 +49,9 @@ export class ReplaysService {
           dataToSaveForSummary[key] = player.heroName_;
         }
       }
+
+      dataToSaveForSummary.gameWinner = parsedData.matchInfo.gameWinner_;
+      dataToSaveForSummary.endTime = parsedData.matchInfo.endTime_;
       const inserted = await this.matchSummaryRepo.save(dataToSaveForSummary);
       await this.matchDetailsRepo.save({
         match_id: matchId,
@@ -70,6 +73,12 @@ export class ReplaysService {
         data.matchInfo = getMatchInfo(json);
         return data;
       }
+
+      if (!data.hasOwnProperty(json.type)) {
+        data[json.type] = [];
+      }
+
+      data[json.type].push(json);
     }
     console.log('endmyparse');
     return data;

@@ -38,4 +38,16 @@ export class MatchSummary {
 
   @Column()
   direHero4: string;
+
+  @Column({nullable: true})
+  gameWinner?: number = 0;
+
+  @Column({nullable: true})
+  radiantKills?: string = '';
+
+  @Column({nullable: true})
+  direKills?: string = '';
+
+  @Column({nullable: true})
+  endTime?: string = '';
 }
