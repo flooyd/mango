@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import moment from 'moment';
 
 function getValveName(heroName) {
@@ -9,9 +8,9 @@ function getValveName(heroName) {
 
 function getEndDateAndTime(time: number) {
   return {
-    endDate: moment.unix(time).format("MM-DD-YYYY"),
-    endTime: moment.unix(time).format("HH:mm:ss A"),
-  }
+    endDate: moment.unix(time).format('MM-DD-YYYY'),
+    endTime: moment.unix(time).format('HH:mm:ss A'),
+  };
 }
 
 export default {
