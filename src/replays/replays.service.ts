@@ -33,8 +33,8 @@ export class ReplaysService {
     try {
       const response = await post('/', file);
       const matchContent = response.toString();
-      const matchContent_array = matchContent.split('\n');
-      const parsedData = await this.myParse(matchContent_array);
+      const matchContentArray = matchContent.split('\n');
+      const parsedData = await this.myParse(matchContentArray);
       const dataToSaveForSummary: any = {
         match_id: matchId,
       };
