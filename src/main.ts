@@ -8,12 +8,12 @@ async function bootstrap() {
   app.enableCors({
     origin: '*',
   });
-  const odotaparser = child.spawn('java', [
+  /* const odotaparser = child.spawn('java', [
     '-jar',
     '../odotaparser/stats-0.1.0.jar',
-  ]);
+  ]); */
   await app.listen(8080);
-  process.on('exit', () => odotaparser.kill());
+  // process.on('exit', () => odotaparser.kill());
 }
 
 bootstrap();
