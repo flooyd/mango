@@ -92,7 +92,7 @@ export class ReplaysService {
     });
     console.log(radiantKills);
 
-    radiantKills = radiantKills.filter(k => k.attackername !== k.targetname);
+    radiantKills = radiantKills.filter((k) => k.attackername !== k.targetname);
 
     let direKills = kills.filter((k) => {
       if (dataToSaveForSummary['direHero0'] === k.attackername) {
@@ -112,7 +112,7 @@ export class ReplaysService {
       }
     });
 
-    direKills = direKills.filter(k => k.attackername !== k.targetname);
+    direKills = direKills.filter((k) => k.attackername !== k.targetname);
 
     return {
       radiantKills,
@@ -140,11 +140,6 @@ export class ReplaysService {
     return data;
   }
 }
-
-const getTypes = (data) => {
-  const types = Array.from(new Set(data.map((item: any) => item.type)));
-  console.log(types);
-};
 
 const getMatchInfo = (o) => {
   o.key = JSON.parse(o.key);
