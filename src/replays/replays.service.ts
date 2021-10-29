@@ -90,7 +90,6 @@ export class ReplaysService {
         return k;
       }
     });
-    console.log(radiantKills);
 
     radiantKills = radiantKills.filter((k) => k.attackername !== k.targetname);
 
@@ -122,7 +121,6 @@ export class ReplaysService {
 
   myParse(opendotaArray: string[]) {
     const data: any = {};
-    console.log('myparse');
     for (const line of opendotaArray) {
       const json = JSON.parse(line);
       if (json.type === 'epilogue') {
@@ -136,7 +134,6 @@ export class ReplaysService {
 
       data[json.type].push(json);
     }
-    console.log('end');
     return data;
   }
 }
