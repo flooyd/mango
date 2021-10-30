@@ -1,11 +1,21 @@
 <script lang="ts">
   import selectedMatch from '../stores/selectedMatch';
-
+  const {matchSummary} = $selectedMatch;
+  
   const returnToReplays = () => {
     $selectedMatch = null;
   }
 </script>
 
-<h1>Match Details</h1>
+<h1 class="title">Match Details</h1>
+<div class="summary">
+  <div>{`Ended ${matchSummary.endDateObject.endDate} at ${matchSummary.endDateObject.endTime}`}</div>
+</div>
 <br/>
 <button on:click={returnToReplays}>Return to replays</button>
+
+<style>
+  .title {
+    font-size: 31px;
+  }
+</style>

@@ -2,12 +2,18 @@
   import Players from './Players.svelte';
   import util from '../util/util';
   import selectedMatch from '../stores/selectedMatch';
+  import { match } from 'assert';
 
   export let matchSummary;
   export let matchId;
 
   let endDate: string | null = null;
   let endTime: string | null = null;
+
+  $: if (matchSummary) {
+      matchSummary.endDateObject = util.getEndDateAndTimeObject(matchSummary.endTime);
+      matchSummary.gameWinnerObject = util.getGameWinnerObject(matchSummary.gameWinner);
+    }
 
   const getMatchDetails = async () => {
     $selectedMatch = 'loading';
@@ -21,25 +27,14 @@
     };
     console.log($selectedMatch);
   };
-
-  const getEndDate = () => {
-    console.log(matchSummary.endTime);
-    const endTimeProcessed = util.getEndDateAndTime(matchSummary.endTime);
-    return `Match ended on ${endTimeProcessed.endDate} at ${endTimeProcessed.endTime}`;
-  };
 </script>
 
 <div class="match" on:click={getMatchDetails}>
   <div class="content">
     <div class="matchId">Match ID: {matchId}</div>
-    {#if (matchSummary && matchSummary.gameWinner) === 2}
-      <div class="winner radiant">Radiant Victory!</div>
-      <div class="endDate" />
-    {:else if matchSummary && matchSummary.gameWinner === 3}
-      <div class="winner dire">Dire Victory!</div>
-    {/if}
     {#if matchSummary}
-      <div class="endDate">{getEndDate()}</div>
+      <div class={matchSummary.gameWinnerObject.class}>{matchSummary.gameWinnerObject.string}</div>
+      <div class="endDate">{`Ended ${matchSummary.endDateObject.endDate} at ${matchSummary.endDateObject.endTime}`}</div>
       <div class="kills">
         Radiant: {matchSummary.radiantKills} kills | Dire: {matchSummary.direKills}
         kills
@@ -50,9 +45,9 @@
 </div>
 
 <style>
-  
   .matchId,
-  .winner,
+  .radiant,
+  .dire,
   .endDate,
   .kills {
     margin-bottom: 10px;

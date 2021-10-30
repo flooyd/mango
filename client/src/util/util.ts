@@ -6,14 +6,27 @@ function getValveName(heroName) {
   return heroName;
 }
 
-function getEndDateAndTime(time: number) {
+function getEndDateAndTimeObject(time: number) {
   return {
     endDate: moment.unix(time).format('MM-DD-YYYY'),
     endTime: moment.unix(time).format('HH:mm:ss A'),
   };
 }
 
+function getGameWinnerObject(winner: number) {
+  if (winner === 2) {
+    {
+      return { string: 'Radiant Victory', class: 'radiant' }
+    }
+  } else {
+    {
+      return { string: 'Dire Victory', class: 'dire' }
+    }
+  }
+}
+
 export default {
   getValveName,
-  getEndDateAndTime,
+  getEndDateAndTimeObject,
+  getGameWinnerObject,
 };

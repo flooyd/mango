@@ -48,7 +48,7 @@
   };
 </script>
 
-<div class="replay">
+<div class={matchSummary ? "replay special" : "replay"}>
   <Match {matchId} {matchSummary} />
   {#if error && !buttonDisabled}
     <button disabled={buttonDisabled} on:click={parseReplay}
@@ -60,16 +60,12 @@
 <style>
   .replay {
     margin-bottom: 20px;
-  }
-
-  .replay {
     border: 3px solid #333;
     border-radius: 3px;
     padding: 20px;
     width: 800px;
   }
-
-  .replay:hover {
+  .special:hover {
     cursor: pointer;
     background: #333;
     border-color: white;
