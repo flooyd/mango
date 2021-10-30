@@ -1,7 +1,8 @@
 <script lang="ts">
   import selectedMatch from '../stores/selectedMatch';
-  const {matchSummary} = $selectedMatch;
-  
+
+  const {matchSummary} = $selectedMatch
+
   const returnToReplays = () => {
     $selectedMatch = null;
   }

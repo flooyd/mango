@@ -9,9 +9,13 @@
   <Header />
   <div class="content">
     {#if !$selectedMatch}
-      <Replays />
-    {:else}
-      <MatchDetails />
+      <Replays/>
+    {/if}
+    {#if $selectedMatch === 'loading'}
+    <div>LOADING...</div>
+    {/if}
+    {#if $selectedMatch && $selectedMatch !== 'loading'}
+    <MatchDetails/>
     {/if}
   </div>
 </main>
