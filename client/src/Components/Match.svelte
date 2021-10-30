@@ -17,11 +17,10 @@
     const matchDetails = await response.json();
     $selectedMatch = {
       matchSummary,
-      matchDetails
-    }
-    console.log($selectedMatch)
+      matchDetails,
+    };
+    console.log($selectedMatch);
   };
-
 
   const getEndDate = () => {
     console.log(matchSummary.endTime);
@@ -31,37 +30,36 @@
 </script>
 
 <div class="match" on:click={getMatchDetails}>
-  <div class="matchId">Match ID: {matchId}</div>
-  {#if (matchSummary && matchSummary.gameWinner) === 2}
-    <div class="winner radiant">Radiant Victory!</div>
-    <div class="endDate" />
-  {:else if matchSummary && matchSummary.gameWinner === 3}
-    <div class="winner dire">Dire Victory!</div>
-  {/if}
-  {#if matchSummary}
-    <div class="endDate">{getEndDate()}</div>
-    <div class="kills">
-      Radiant: {matchSummary.radiantKills} kills | Dire: {matchSummary.direKills}
-      kills
-    </div>
-    <Players players={matchSummary.valvePlayers} />
-  {/if}
+  <div class="content">
+    <div class="matchId">Match ID: {matchId}</div>
+    {#if (matchSummary && matchSummary.gameWinner) === 2}
+      <div class="winner radiant">Radiant Victory!</div>
+      <div class="endDate" />
+    {:else if matchSummary && matchSummary.gameWinner === 3}
+      <div class="winner dire">Dire Victory!</div>
+    {/if}
+    {#if matchSummary}
+      <div class="endDate">{getEndDate()}</div>
+      <div class="kills">
+        Radiant: {matchSummary.radiantKills} kills | Dire: {matchSummary.direKills}
+        kills
+      </div>
+      <Players players={matchSummary.valvePlayers} />
+    {/if}
+  </div>
 </div>
 
 <style>
-  .match {
-    border: 2px solid #333;
-    padding: 20px;
-  }
-
-  .match:hover {
-    cursor: pointer;
-  }
+  
   .matchId,
   .winner,
   .endDate,
   .kills {
     margin-bottom: 10px;
+  }
+
+  .matchId {
+    font-weight: bold;
   }
 
   .radiant {

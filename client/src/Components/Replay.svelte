@@ -61,4 +61,18 @@
   .replay {
     margin-bottom: 20px;
   }
+
+  .replay {
+    border: 3px solid #333;
+    border-radius: 3px;
+    padding: 20px;
+    width: 800px;
+  }
+
+  .replay:hover {
+    cursor: pointer;
+    background: #333;
+    border-color: white;
+    color: white;
+  }
 </style>

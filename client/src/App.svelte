@@ -19,5 +19,6 @@
 <style>
   .content {
     padding: 20px;
+    font-size: 20px;
   }
 </style>
