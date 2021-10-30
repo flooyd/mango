@@ -17,9 +17,9 @@ export class ReplaysService {
 
   replayDirectory =
     'C:/Program Files (x86)/Steam/steamapps/common/dota 2 beta/game/dota/replays';
-
+  replayDirectoryUbuntu = '/home/floyd/.local/share/Steam/steamapps/common/dota 2 beta/game/dota/replays'
   async getReplays() {
-    let files = await fs.promises.readdir(this.replayDirectory);
+    let files = await fs.promises.readdir(this.replayDirectoryUbuntu);
     files = files.filter((file) => file != 'placeholder.txt');
     return files.map((file) => {
       return file.split('.')[0];
@@ -27,7 +27,7 @@ export class ReplaysService {
   }
 
   async saveParsedReplay(matchId: string) {
-    const file = fs.readFileSync(`${this.replayDirectory}/${matchId}.dem`);
+    const file = fs.readFileSync(`${this.replayDirectoryUbuntu}/${matchId}.dem`);
 
     const post = bent('http://localhost:5600', 'POST', 'buffer', 200);
     try {
