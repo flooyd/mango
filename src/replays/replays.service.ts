@@ -28,9 +28,7 @@ export class ReplaysService {
   }
 
   async saveParsedReplay(matchId: string) {
-    const file = fs.readFileSync(
-      `${this.replayDirectoryUbuntu}/${matchId}.dem`,
-    );
+    const file = fs.readFileSync(`${this.replayDirectory}/${matchId}.dem`);
 
     const post = bent('http://localhost:5600', 'POST', 'buffer', 200);
     try {
