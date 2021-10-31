@@ -19,4 +19,8 @@
   .title {
     font-size: 31px;
   }
+
+  .summary {
+    margin-top: 10px;
+  }
 </style>

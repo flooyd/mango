@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-import App from '../App.svelte';
   import Replay from './Replay.svelte';
   let replays = null;
   onMount(async () => {
@@ -23,7 +22,7 @@ import App from '../App.svelte';
     </div>
   {:else}
     {#each replays as replay}
-      <Replay matchId={replay}/>
+      <Replay matchId={replay} />
     {/each}
   {/if}
 </div>
