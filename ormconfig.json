@@ -6,7 +6,7 @@
   "username": "postgres",
   "password": "postgres",
   "database": "mango",
-  "entities": ["dist/**/*.entity{.ts,.js}"],
+  "entities": ["dist/src/Entities/*.entity{.ts,.js}"],
   "synchronize": true,
   "migrations": ["dist/migrations/*{.ts,.js}"],
   "migrationsTableName": "migrations_typeorm",
