@@ -1,7 +1,11 @@
 <script lang="ts">
   import selectedMatch from '../stores/selectedMatch';
+  import SvelteTable from 'svelte-table';
 
-  const {matchSummary} = $selectedMatch
+  const {matchSummary, matchDetails} = $selectedMatch
+
+  const rows = matchDetails.last10Intervals;
+  console.log(rows);
 
   const returnToReplays = () => {
     $selectedMatch = null;
@@ -14,6 +18,7 @@
 </div>
 <br/>
 <button on:click={returnToReplays}>Return to replays</button>
+
 
 <style>
   .title {
