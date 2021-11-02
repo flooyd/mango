@@ -6,11 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "postinstall": "cd client && npm install && cd .. && cd mango-app && npm install",
+    "postinstall": "cd client && npm install",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "concurrently \"nest start\" \"cd client && npm start\" \"cd mango-app && npm start\"  ",
+    "start": "concurrently \"nest start\" \"cd client && npm start\"  ",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
