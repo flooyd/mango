@@ -16,11 +16,11 @@ function getEndDateAndTimeObject(time: number) {
 function getGameWinnerObject(winner: number) {
   if (winner === 2) {
     {
-      return { string: 'Radiant Victory', class: 'radiant' }
+      return { string: 'Radiant Victory!', class: 'radiant' };
     }
   } else {
     {
-      return { string: 'Dire Victory', class: 'dire' }
+      return { string: 'Dire Victory!', class: 'dire' };
     }
   }
 }

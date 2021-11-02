@@ -2,7 +2,7 @@
   import Players from './Players.svelte';
   import util from '../util/util';
   import selectedMatch from '../stores/selectedMatch';
-  
+
   export let matchSummary;
   export let matchId;
 
@@ -17,8 +17,7 @@
 
   const getMatchDetails = async () => {
     $selectedMatch = 'loading';
-    setTimeout(async() => {
-      const response = await fetch(
+    const response = await fetch(
       `http://localhost:8080/matches/details/${matchId}`,
     );
     const matchDetails = await response.json();
@@ -27,7 +26,6 @@
       matchDetails,
     };
     console.log($selectedMatch);
-    }, 1500)
   };
 </script>
 
@@ -70,4 +68,5 @@
   .dire {
     color: red;
   }
+
 </style>
