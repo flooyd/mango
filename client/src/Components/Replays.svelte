@@ -4,7 +4,8 @@
   let replays = null;
   onMount(async () => {
     const response = await fetch('http://localhost:8080/replays');
-    replays = await response.json();
+    replays = await response.json()
+    replays = replays.sort(function(a, b){return b-a});
   });
 </script>
 
