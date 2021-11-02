@@ -20,7 +20,7 @@ export class ReplaysService {
   replayDirectoryUbuntu =
     '/home/floyd/.local/share/Steam/steamapps/common/dota 2 beta/game/dota/replays';
   async getReplays() {
-    let files = await fs.promises.readdir(this.replayDirectory);
+    let files = await fs.promises.readdir(this.replayDirectoryUbuntu);
     files = files.filter((file) => file != 'placeholder.txt');
     return files.map((file) => {
       return file.split('.')[0];

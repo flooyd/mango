@@ -17,7 +17,8 @@
 
   const getMatchDetails = async () => {
     $selectedMatch = 'loading';
-    const response = await fetch(
+    setTimeout(async() => {
+      const response = await fetch(
       `http://localhost:8080/matches/details/${matchId}`,
     );
     const matchDetails = await response.json();
@@ -26,6 +27,7 @@
       matchDetails,
     };
     console.log($selectedMatch);
+    }, 1500)
   };
 </script>
 

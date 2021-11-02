@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Match from '../Components/Match.svelte';
+  import Match from './Match.svelte';
   import util from '../util/util';
   export let matchId;
 
