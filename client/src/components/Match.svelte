@@ -57,10 +57,12 @@
   .endDate,
   .kills {
     margin-bottom: 10px;
+    font-size: 16px;
   }
 
   .matchId {
     font-weight: bold;
+    font-size: 20px;
   }
 
   .radiant {

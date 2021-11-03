@@ -138,7 +138,7 @@
 
   .summary button:hover {
     color: white;
-    background: #333;
+    background: blue;
   }
 
   :global(.table) {

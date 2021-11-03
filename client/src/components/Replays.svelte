@@ -22,13 +22,25 @@
       >
     </div>
   {:else}
+  <div class="replays">
     {#each replays as replay}
+    <div class="replay">
       <Replay matchId={replay} />
+    </div>
+      
     {/each}
+  </div>
   {/if}
 </div>
 
 <style>
+  .replay {
+    margin-right: 25px;
+  }
+  .replays {
+    display: flex;
+    flex-wrap: wrap;
+  }
   div {
     margin-bottom: 20px;
   }

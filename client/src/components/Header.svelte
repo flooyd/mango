@@ -1,9 +1,11 @@
 <script>
-  
+  import selectedMatch from '../stores/selectedMatch';
+
+  const handleClickTitle = () => $selectedMatch = null;
 </script>
 
 <header>
-  <div>Dota Replays</div>
+  <div on:click={handleClickTitle} class="title">Dota Replays</div>
   <div class="about">About</div>
 </header>
 
@@ -15,9 +17,17 @@
     font-size: 25px;
     justify-content: space-between;
     align-items: center;
+    color: #333;
+    font-weight: bold;
   }
 
   .about {
     font-size: 20px;
+    font-weight: 400;
+  }
+
+  .about:hover, .title:hover {
+    color: blue;
+    cursor: pointer;
   }
 </style>
