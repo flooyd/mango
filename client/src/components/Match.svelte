@@ -2,6 +2,7 @@
   import Players from './Players.svelte';
   import util from '../util/util';
   import selectedMatch from '../stores/selectedMatch';
+  import { onMount } from 'svelte';
 
   export let matchSummary;
   export let matchId;
@@ -13,6 +14,7 @@
     matchSummary.gameWinnerObject = util.getGameWinnerObject(
       matchSummary.gameWinner,
     );
+    
   }
 
   const getMatchDetails = async () => {

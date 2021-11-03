@@ -43,16 +43,16 @@
       renderComponent: TableHero,
     },
     {
-      key: 'lh/d',
-      title: 'LH / D',
-      value: (v) => v.lh + ' / ' + v.denies,
+      key: 'kda',
+      title: 'K / D / A',
+      value: (v) => v.kills + ' / ' + v.deaths + ' / ' + v.assists,
       class: 'tableCell',
       headerClass: 'tableHeader',
     },
     {
-      key: 'kda',
-      title: 'K / D / A',
-      value: (v) => v.kills + ' / ' + v.deaths + ' / ' + v.assists,
+      key: 'lh/d',
+      title: 'LH / D',
+      value: (v) => v.lh + ' / ' + v.denies,
       class: 'tableCell',
       headerClass: 'tableHeader',
     },
@@ -68,75 +68,147 @@
 </script>
 
 <h1 class="title">Match Details - {matchSummary.match_id}</h1>
-<div class={matchSummary.gameWinnerObject.class}>
-  {matchSummary.gameWinnerObject.string}
-</div>
 <div class="summary">
+  <div class={matchSummary.gameWinnerObject.class}>
+    {matchSummary.gameWinnerObject.string}
+  </div>
   <div>
     {`Ended ${matchSummary.endDateObject.endDate} at ${matchSummary.endDateObject.endTime}`}
   </div>
+  <button on:click={returnToReplays}>Return to replays</button>
 </div>
-<br />
-<button on:click={returnToReplays}>Return to replays</button>
+<div class="tableContainer tableContainerRadiant">
+  <div class="tableName">Radiant</div>
 <SvelteTable
   on:clickRow={handleClickRow}
   classNameRow="tableRow"
   classNameThead="tableHeader"
   classNameTable="table"
   {columns}
-  rows={rows.slice(0,5)}
+  rows={rows.slice(0, 5)}
 />
+</div>
+<div class="tableContainer tableContainerDire">
+  <div class="tableName">Dire</div>
 <SvelteTable
   on:clickRow={handleClickRow}
   classNameRow="tableRow"
   classNameThead="tableHeader"
-  classNameTable="table"
+  classNameTable="table tableDire"
   {columns}
   rows={rows.slice(-5)}
 />
+</div>
+
 
 <style>
   .title {
-    font-size: 31px;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
   }
 
   .summary {
     margin-top: 10px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    color: #333;
+  }
+
+  .summary > div {
+    height: 25px;
+    margin-right: 13px;
+    color: #333;
+  }
+
+  .summary button {
+    height: 25px;
+    background: white;
+    border: 1px solid #333;
+    color: #333;
+    border-radius: 5px;
+    margin-top: -8px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+  }
+
+  .summary button:hover {
+    color: white;
+    background: #333;
   }
 
   :global(.table) {
-    margin-top: 20px;
     text-align: left;
     table-layout: fixed;
   }
 
-  .radiant {
+  :global(.tableContainer) {
+    border-radius: 3px;
+    padding-top: 10px;
+    padding: 13px;
+    padding-left: 0px;
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-bottom: 13px;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    
+  }
+
+  :global(.tableContainerRadiant) {
+    box-shadow: 3px 3px 3px 0px #008000;
     color: green;
   }
 
-  .dire {
+  :global(.tableContainerDire) {
+    box-shadow: 3px 3px 5px 0px #FFB8B8;
     color: red;
+  }
+
+  .radiant {
+    color: green !important;
+  }
+
+  .dire {
+    color: red !important;
   }
 
   .radiant,
   .dire {
     margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   :global(td) {
     padding: 8px 0px;
-    padding-left: 8px;
+    color: #333;
+    font-size: 16px;
   }
 
   :global(.tableHeader) {
-    padding-left: 8px;
-    padding-bottoM: 8px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    color: #333;
     font-weight: bold;
+    font-size: 16px;
   }
 
   :global(.tableRow:hover) {
     background: #333;
-    color: white;
     cursor: pointer;
+  }
+
+  :global(.tableRow:hover td) {
+    color: white;
+  }
+
+  :global(.tableRow) {
+    
   }
 </style>

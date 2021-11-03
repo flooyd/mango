@@ -13,17 +13,20 @@
 </div>
 
 <style>
+  * {
+    color: 333;
+  }
   img {
     width: 64px;
     height: 36px;
     margin-right: 13px;
   }
   .direHero {
-    color: red;
+    
     display: inline-block;
   }
   .radiantHero {
-    color: green;
+    
     display: inline-block;
   }
 </style>

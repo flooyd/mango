@@ -12,12 +12,12 @@
     box-shadow: rgba(0, 0, 0, 0.5) 0px -4px 9px 2px;
     display: flex;
     padding: 20px;
-    font-size: 39px;
+    font-size: 25px;
     justify-content: space-between;
     align-items: center;
   }
 
   .about {
-    font-size: 31px;
+    font-size: 20px;
   }
 </style>
