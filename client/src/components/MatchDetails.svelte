@@ -38,26 +38,23 @@
       key: 'unitValve',
       title: 'Hero',
       value: (v) => v.unitLocalized,
-      sortable: true,
-      headerClass: 'tableHeader',
       class: 'tableCell',
+      headerClass: 'tableHeader',
       renderComponent: TableHero,
     },
     {
       key: 'lh/d',
       title: 'LH / D',
       value: (v) => v.lh + ' / ' + v.denies,
-      sortable: true,
-      headerClass: 'tableHeader',
       class: 'tableCell',
+      headerClass: 'tableHeader',
     },
     {
       key: 'kda',
       title: 'K / D / A',
       value: (v) => v.kills + ' / ' + v.deaths + ' / ' + v.assists,
-      sortable: true,
-      headerClass: 'tableHeader',
       class: 'tableCell',
+      headerClass: 'tableHeader',
     },
   ];
 
@@ -87,7 +84,15 @@
   classNameThead="tableHeader"
   classNameTable="table"
   {columns}
-  {rows}
+  rows={rows.slice(0,5)}
+/>
+<SvelteTable
+  on:clickRow={handleClickRow}
+  classNameRow="tableRow"
+  classNameThead="tableHeader"
+  classNameTable="table"
+  {columns}
+  rows={rows.slice(-5)}
 />
 
 <style>
@@ -102,6 +107,7 @@
   :global(.table) {
     margin-top: 20px;
     text-align: left;
+    table-layout: fixed;
   }
 
   .radiant {
@@ -112,19 +118,20 @@
     color: red;
   }
 
-  .radiant, .dire {
+  .radiant,
+  .dire {
     margin-top: 10px;
   }
 
-  :global(.tableCell) {
+  :global(td) {
     padding: 8px 0px;
     padding-left: 8px;
   }
 
   :global(.tableHeader) {
-    border-bottom: 2px solid #333;
-    padding-bottom: 8px;
     padding-left: 8px;
+    padding-bottoM: 8px;
+    font-weight: bold;
   }
 
   :global(.tableRow:hover) {

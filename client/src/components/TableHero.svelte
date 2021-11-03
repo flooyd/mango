@@ -13,10 +13,6 @@
 </div>
 
 <style>
-  .tableHero {
-    display: flex;
-    align-items: center;
-  }
   img {
     width: 64px;
     height: 36px;
@@ -24,11 +20,10 @@
   }
   .direHero {
     color: red;
+    display: inline-block;
   }
   .radiantHero {
     color: green;
-  }
-  .lastRadiant {
-    margin-bottom: 20px;
+    display: inline-block;
   }
 </style>
