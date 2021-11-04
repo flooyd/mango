@@ -14,7 +14,7 @@
     matchSummary.gameWinnerObject = util.getGameWinnerObject(
       matchSummary.gameWinner,
     );
-    
+    getMatchDetails();
   }
 
   const getMatchDetails = async () => {

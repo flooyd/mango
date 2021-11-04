@@ -24,9 +24,15 @@ export class MatchesService {
     const matchContentArray = matchContent.split('\n');
     const parsedData = await this.replayService.myParse(matchContentArray);
 
-    const processedMatchDetails = {
-      last10Intervals: this.getLast10Intervals(parsedData['interval']),
-    };
+    const processedMatchDetails: any = {};
+
+    processedMatchDetails.last10Intervals = this.getLast10Intervals(
+      parsedData['interval'],
+    );
+    processedMatchDetails.heroKillChatMessages =
+      parsedData['CHAT_MESSAGE_HERO_KILL'];
+    processedMatchDetails.firstBlood = parsedData['DOTA_COMBATLOG_FIRST_BLOOD'];
+    processedMatchDetails.types = parsedData.types;
 
     return processedMatchDetails;
   }

@@ -121,7 +121,7 @@ export class ReplaysService {
   }
 
   myParse(opendotaArray: string[]) {
-    const data: any = {};
+    const data: any = { types: [] };
     for (const line of opendotaArray) {
       const json = JSON.parse(line);
       if (json.type === 'epilogue') {
@@ -131,6 +131,7 @@ export class ReplaysService {
 
       if (!data.hasOwnProperty(json.type)) {
         data[json.type] = [];
+        data.types.push(json.type);
       }
 
       data[json.type].push(json);

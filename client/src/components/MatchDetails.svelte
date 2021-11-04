@@ -5,6 +5,8 @@
 
   const { matchSummary, matchDetails } = $selectedMatch;
 
+  console.log(matchDetails.firstBlood);
+
   const rows = matchDetails.last10Intervals;
   for (const row of rows) {
     console.log('process row');
@@ -39,7 +41,7 @@
       title: 'Hero',
       value: (v) => v.unitLocalized,
       class: 'tableCell',
-      headerClass: 'tableHeader',
+      headerClass: 'tableCell',
       renderComponent: TableHero,
     },
     {
@@ -47,14 +49,35 @@
       title: 'K / D / A',
       value: (v) => v.kills + ' / ' + v.deaths + ' / ' + v.assists,
       class: 'tableCell',
-      headerClass: 'tableHeader',
+      headerClass: 'tableCell',
     },
     {
       key: 'lh/d',
       title: 'LH / D',
       value: (v) => v.lh + ' / ' + v.denies,
       class: 'tableCell',
-      headerClass: 'tableHeader',
+      headerClass: 'tableCell',
+    },
+    {
+      key: 'items',
+      title: 'Items',
+      value: (v) => v.items,
+      class: 'tableCell',
+      headerClass: 'tableCell',
+    },
+    {
+      key: 'gold',
+      title: 'Gold',
+      value: (v) => v.gold,
+      class: 'tableCell',
+      headerClass: 'tableCell',
+    },
+    {
+      key: 'firstblood',
+      title: 'First Blood?',
+      value: (v) => v.firstblood_claimed === 1 ? 'True' : '',
+      class: 'tableCell',
+      headerClass: 'tableCell',
     },
   ];
 
@@ -84,6 +107,7 @@
   classNameRow="tableRow"
   classNameThead="tableHeader"
   classNameTable="table"
+  classNameCell="tableCell"
   {columns}
   rows={rows.slice(0, 5)}
 />
@@ -143,22 +167,17 @@
 
   :global(.table) {
     text-align: left;
-    table-layout: fixed;
   }
 
-  :global(.tableContainer) {
+  .tableContainer {
     border-radius: 3px;
     padding-top: 10px;
     padding: 13px;
     padding-left: 0px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
-    max-width: 100%;
-    margin: 0 auto;
     margin-bottom: 13px;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    
+    width: 1513px;
   }
 
   :global(.tableContainerRadiant) {
@@ -185,18 +204,18 @@
     margin-bottom: 10px;
   }
 
-  :global(td) {
-    padding: 8px 0px;
+  :global(td.tableCell) {
+    width: 200px !important;
+    max-width: 200px !important;
+    overflow: hidden;
+    padding-top: 8px;
+    padding-left: 13px;
     color: #333;
-    font-size: 16px;
+    font-weight: 400;
   }
 
-  :global(.tableHeader) {
-    padding-bottom: 8px;
-    padding-top: 8px;
-    color: #333;
+  :global(.tableHeader .tableCell) {
     font-weight: bold;
-    font-size: 16px;
   }
 
   :global(.tableRow:hover) {
@@ -206,9 +225,5 @@
 
   :global(.tableRow:hover td) {
     color: white;
-  }
-
-  :global(.tableRow) {
-    
   }
 </style>
