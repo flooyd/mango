@@ -51,7 +51,7 @@
 <div class={matchSummary ? "replay special" : "replay"}>
   <Match {matchId} {matchSummary} />
   {#if error && !buttonDisabled}
-    <button disabled={buttonDisabled} on:click={parseReplay}
+    <button on:click={parseReplay}
       >Parse Replay</button
     >
   {/if}

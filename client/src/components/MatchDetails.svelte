@@ -35,14 +35,15 @@
         .join(' ');
     }
   }
-  const columns = [
+  const cols = [
     {
       key: 'unitLocalized',
       title: 'Hero',
       value: (v) => v.unitLocalized,
       class: 'tableCell',
-      headerClass: 'tableCell',
+      headerClass: 'tableCell tableHero',
       renderComponent: TableHero,
+      
     },
     {
       key: 'kda',
@@ -107,8 +108,7 @@
   classNameRow="tableRow"
   classNameThead="tableHeader"
   classNameTable="table"
-  classNameCell="tableCell"
-  {columns}
+  columns={cols}
   rows={rows.slice(0, 5)}
 />
 </div>
@@ -118,8 +118,8 @@
   on:clickRow={handleClickRow}
   classNameRow="tableRow"
   classNameThead="tableHeader"
-  classNameTable="table tableDire"
-  {columns}
+  classNameTable="table"
+  columns={cols}
   rows={rows.slice(-5)}
 />
 </div>
@@ -165,19 +165,24 @@
     background: blue;
   }
 
-  :global(.table) {
+  :global(.tableContainer .table) {
+    max-width: 1000px;
     text-align: left;
+    overflow-x: auto;
+    display: block;
   }
 
   .tableContainer {
-    border-radius: 3px;
+    border-radius: 4px;
     padding-top: 10px;
     padding: 13px;
     padding-left: 0px;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 13px;
-    width: 1513px;
+    width: 800px;
+    border: 1px solid #333;
+    padding-left: 13px;
   }
 
   :global(.tableContainerRadiant) {
@@ -204,18 +209,27 @@
     margin-bottom: 10px;
   }
 
-  :global(td.tableCell) {
-    width: 200px !important;
-    max-width: 200px !important;
-    overflow: hidden;
-    padding-top: 8px;
+  :global(.tableCell) {
+    width: fit-content;
+    min-width: 100px;
+    padding-right: 13px;
+    padding-top: 5px;
     padding-left: 13px;
+    padding-bottom: 5px;
     color: #333;
     font-weight: 400;
+    border: 3px solid#333;
+    display: table-cell;
+  }
+
+  :global(.tableHero) {
+    width: 220px;
   }
 
   :global(.tableHeader .tableCell) {
     font-weight: bold;
+    border: none;
+    padding-bottom: 13px;
   }
 
   :global(.tableRow:hover) {
