@@ -33,7 +33,14 @@ export class MatchesService {
       parsedData['CHAT_MESSAGE_HERO_KILL'];
     processedMatchDetails.firstBlood = parsedData['DOTA_COMBATLOG_FIRST_BLOOD'];
     processedMatchDetails.types = parsedData.types;
-
+    processedMatchDetails.Items = parsedData['DOTA_COMBATLOG_ITEM'];
+    processedMatchDetails.GameState = parsedData['DOTA_COMBATLOG_GAME_STATE'];
+    processedMatchDetails.matchInfo = parsedData.matchInfo;
+    processedMatchDetails.Purchases = parsedData['DOTA_COMBATLOG_PURCHASE'];
+    processedMatchDetails.Stats = parsedData['DOTA_COMBATLOG_PLAYERSTATS'];
+    processedMatchDetails.Intervals = parsedData['interval'];
+    processedMatchDetails.ConstantItems =
+      parsedData['CONSTANT_ITEM'].slice(-100);
     return processedMatchDetails;
   }
 

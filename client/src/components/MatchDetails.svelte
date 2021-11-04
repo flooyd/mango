@@ -166,7 +166,7 @@
   }
 
   :global(.tableContainer .table) {
-    max-width: 1000px;
+    width: 100%;
     text-align: left;
     overflow-x: auto;
     display: block;
@@ -180,18 +180,17 @@
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 13px;
-    width: 800px;
-    border: 1px solid #333;
+    width: fit-content;
     padding-left: 13px;
   }
 
   :global(.tableContainerRadiant) {
-    box-shadow: 3px 3px 3px 0px #008000;
+    box-shadow: 2px 2px 5px 2px #008000;
     color: green;
   }
 
   :global(.tableContainerDire) {
-    box-shadow: 3px 3px 5px 0px #FFB8B8;
+    box-shadow: 2px 2px 5px 2px #FFB8B8;
     color: red;
   }
 
@@ -210,7 +209,6 @@
   }
 
   :global(.tableCell) {
-    width: fit-content;
     min-width: 100px;
     padding-right: 13px;
     padding-top: 5px;
@@ -218,7 +216,7 @@
     padding-bottom: 5px;
     color: #333;
     font-weight: 400;
-    border: 3px solid#333;
+    border: 1px solid#333;
     display: table-cell;
   }
 
