@@ -37,7 +37,7 @@
   }
   const columns = [
     {
-      key: 'unitValve',
+      key: 'unitLocalized',
       title: 'Hero',
       value: (v) => v.unitLocalized,
       class: 'tableCell',
