@@ -44,7 +44,7 @@ q:before, q:after {
 }
 table {
 	border-collapse: initial ;
-;
+  border-spacing: 0;
 }
 
 /* End Reset */

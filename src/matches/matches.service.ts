@@ -40,7 +40,7 @@ export class MatchesService {
     processedMatchDetails.Stats = parsedData['DOTA_COMBATLOG_PLAYERSTATS'];
     processedMatchDetails.Intervals = parsedData['interval'];
     processedMatchDetails.EndGameItems = this.trimAndProcessItems(
-      parsedData['CONSTANT_ITEM'].slice(-100),
+      parsedData['CONSTANT_ITEM'].slice(200),
     );
 
     return processedMatchDetails;
@@ -65,6 +65,25 @@ export class MatchesService {
     for (const item of trimmedItems) {
       item.targetname = item.targetname.replace('npc_dota_hero_', '');
       item.valuename = item.valuename.replace('item_', '');
+      switch (item.targetname) {
+        case 'shadowshaman':
+          item.targetname = 'shadow_shaman';
+          continue;
+        case 'sandking':
+          item.targetname = 'sand_king';
+          continue;
+        case 'doombringer':
+          item.targetname = 'doom_bringer';
+          continue;
+        case 'darkwillow':
+          item.targetname = 'dark_willow';
+          continue;
+        case 'spiritbreaker':
+          item.targetname = 'spirit_breaker';
+          continue;
+        default:
+          continue;
+      }
     }
     return trimmedItems;
   }

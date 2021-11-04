@@ -216,7 +216,7 @@ import TableHeroItems from './TableHeroItems.svelte';
     padding-bottom: 5px;
     color: #333;
     font-weight: 400;
-    border: 1px solid#333;
+    border-top: 1px solid#333;
     display: table-cell;
   }
 
