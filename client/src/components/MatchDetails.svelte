@@ -2,14 +2,14 @@
   import selectedMatch from '../stores/selectedMatch';
   import SvelteTable from 'svelte-table';
   import TableHero from './TableHero.svelte';
+import TableHeroItems from './TableHeroItems.svelte';
 
   const { matchSummary, matchDetails } = $selectedMatch;
 
-  console.log(matchDetails.firstBlood);
+  const rows = matchDetails.Last10Intervals;
+  const items = matchDetails.EndGameItems;
 
-  const rows = matchDetails.last10Intervals;
   for (const row of rows) {
-    console.log('process row');
     row.unitValve = '';
     if (row.slot < 5) {
       row.unitValve = matchSummary[`radiantHero${row.slot}`].replace(
@@ -34,6 +34,7 @@
         })
         .join(' ');
     }
+    row.items = items.filter((item) => item.targetname === row.unitValve);
   }
   const cols = [
     {
@@ -43,7 +44,6 @@
       class: 'tableCell',
       headerClass: 'tableCell tableHero',
       renderComponent: TableHero,
-      
     },
     {
       key: 'kda',
@@ -62,9 +62,10 @@
     {
       key: 'items',
       title: 'Items',
-      value: (v) => v.items,
+      value: '',
       class: 'tableCell',
       headerClass: 'tableCell',
+      renderComponent: TableHeroItems
     },
     {
       key: 'gold',
@@ -76,7 +77,7 @@
     {
       key: 'firstblood',
       title: 'First Blood?',
-      value: (v) => v.firstblood_claimed === 1 ? 'True' : '',
+      value: (v) => (v.firstblood_claimed === 1 ? 'True' : ''),
       class: 'tableCell',
       headerClass: 'tableCell',
     },
@@ -103,27 +104,26 @@
 </div>
 <div class="tableContainer tableContainerRadiant">
   <div class="tableName">Radiant</div>
-<SvelteTable
-  on:clickRow={handleClickRow}
-  classNameRow="tableRow"
-  classNameThead="tableHeader"
-  classNameTable="table"
-  columns={cols}
-  rows={rows.slice(0, 5)}
-/>
+  <SvelteTable
+    on:clickRow={handleClickRow}
+    classNameRow="tableRow"
+    classNameThead="tableHeader"
+    classNameTable="table"
+    columns={cols}
+    rows={rows.slice(0, 5)}
+  />
 </div>
 <div class="tableContainer tableContainerDire">
   <div class="tableName">Dire</div>
-<SvelteTable
-  on:clickRow={handleClickRow}
-  classNameRow="tableRow"
-  classNameThead="tableHeader"
-  classNameTable="table"
-  columns={cols}
-  rows={rows.slice(-5)}
-/>
+  <SvelteTable
+    on:clickRow={handleClickRow}
+    classNameRow="tableRow"
+    classNameThead="tableHeader"
+    classNameTable="table"
+    columns={cols}
+    rows={rows.slice(-5)}
+  />
 </div>
-
 
 <style>
   .title {
@@ -190,7 +190,7 @@
   }
 
   :global(.tableContainerDire) {
-    box-shadow: 2px 2px 5px 2px #FFB8B8;
+    box-shadow: 2px 2px 5px 2px #ffb8b8;
     color: red;
   }
 

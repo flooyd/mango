@@ -26,7 +26,7 @@ export class MatchesService {
 
     const processedMatchDetails: any = {};
 
-    processedMatchDetails.last10Intervals = this.getLast10Intervals(
+    processedMatchDetails.Last10Intervals = this.getLast10Intervals(
       parsedData['interval'],
     );
     processedMatchDetails.heroKillChatMessages =
@@ -39,8 +39,10 @@ export class MatchesService {
     processedMatchDetails.Purchases = parsedData['DOTA_COMBATLOG_PURCHASE'];
     processedMatchDetails.Stats = parsedData['DOTA_COMBATLOG_PLAYERSTATS'];
     processedMatchDetails.Intervals = parsedData['interval'];
-    processedMatchDetails.ConstantItems =
-      parsedData['CONSTANT_ITEM'].slice(-100);
+    processedMatchDetails.EndGameItems = this.trimAndProcessItems(
+      parsedData['CONSTANT_ITEM'].slice(-100),
+    );
+
     return processedMatchDetails;
   }
 
@@ -55,5 +57,15 @@ export class MatchesService {
   getLast10Intervals(intervals: any[]) {
     const last10Intervals = intervals.slice(-10);
     return last10Intervals;
+  }
+
+  trimAndProcessItems(items) {
+    const endGameTime = items[items.length - 1].time;
+    const trimmedItems = items.filter((item) => item.time === endGameTime);
+    for (const item of trimmedItems) {
+      item.targetname = item.targetname.replace('npc_dota_hero_', '');
+      item.valuename = item.valuename.replace('item_', '');
+    }
+    return trimmedItems;
   }
 }
