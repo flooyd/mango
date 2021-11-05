@@ -4,6 +4,7 @@
   import TableHero from './TableHero.svelte';
   import TableHeroItems from './TableHeroItems.svelte';
   import Item from './Item.svelte';
+  import TableHeroKills from './TableHeroKills.svelte';
 
   const { matchSummary, matchDetails } = $selectedMatch;
 
@@ -93,7 +94,6 @@
   ];
 
   const handleClickRow = (e, team) => {
-    console.log(team);
     const row = e.detail.row;
     if (!row.$expanded) {
       if (team === 'radiant') {
@@ -141,7 +141,9 @@
     expandRowKey="unitLocalized"
     bind:expanded={radiantExpandedRows}
   >
-    <svelte:fragment slot="expanded" let:row>{row.kills}</svelte:fragment>
+    <svelte:fragment slot="expanded" let:row
+      ><TableHeroKills {row} /></svelte:fragment
+    >
   </SvelteTable>
 </div>
 <div class="tableContainer tableContainerDire">
@@ -156,7 +158,9 @@
     expandRowKey="unitLocalized"
     bind:expanded={direExpandedRows}
   >
-    <svelte:fragment slot="expanded" let:row>{row.kills}</svelte:fragment>
+    <svelte:fragment slot="expanded" let:row
+      ><TableHeroKills {row} /></svelte:fragment
+    >
   </SvelteTable>
 </div>
 
@@ -205,7 +209,6 @@
     text-align: left;
     overflow-x: auto;
     display: block;
-    max-height: 971px;
     overflow-y: auto;
   }
 
@@ -253,7 +256,7 @@
     padding-bottom: 5px;
     color: #333;
     font-weight: 400;
-    border-top: 1px solid#333;
+    border-top: 2px solid#333;
     display: table-cell;
   }
 
