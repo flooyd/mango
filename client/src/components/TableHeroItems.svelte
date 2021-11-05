@@ -11,4 +11,10 @@ import Item from "./Item.svelte";
   {/each}
 </div>
 
+<style>
+  .items {
+    min-width: 288px;
+  }
+</style>
+
 

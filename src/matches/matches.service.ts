@@ -87,6 +87,12 @@ export class MatchesService {
         case 'skeletonking':
           item.targetname = 'skeleton_king';
           continue;
+        case 'arcwarden':
+          item.targetname = 'arc_warden';
+          continue;
+        case 'ancientapparition':
+          item.targetname = 'ancient_apparition';
+          continue;
         default:
           continue;
       }
