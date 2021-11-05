@@ -2,14 +2,20 @@
   import selectedMatch from '../stores/selectedMatch';
   import SvelteTable from 'svelte-table';
   import TableHero from './TableHero.svelte';
-import TableHeroItems from './TableHeroItems.svelte';
+  import TableHeroItems from './TableHeroItems.svelte';
+  import Item from './Item.svelte';
 
   const { matchSummary, matchDetails } = $selectedMatch;
 
   const rows = matchDetails.Last10Intervals;
   const items = matchDetails.EndGameItems;
+  const pvpKills = matchDetails.pvpKills;
+
+  let direExpandedRows = [];
+  let radiantExpandedRows = [];
 
   for (const row of rows) {
+    console.log(row);
     row.unitValve = '';
     if (row.slot < 5) {
       row.unitValve = matchSummary[`radiantHero${row.slot}`].replace(
@@ -35,6 +41,9 @@ import TableHeroItems from './TableHeroItems.svelte';
         .join(' ');
     }
     row.items = items.filter((item) => item.targetname === row.unitValve);
+    row.pvpKills = pvpKills.filter(
+      (kill) => kill.attackername === row.unitValve,
+    );
   }
   const cols = [
     {
@@ -65,7 +74,7 @@ import TableHeroItems from './TableHeroItems.svelte';
       value: '',
       class: 'tableCell',
       headerClass: 'tableCell',
-      renderComponent: TableHeroItems
+      renderComponent: TableHeroItems,
     },
     {
       key: 'gold',
@@ -83,8 +92,26 @@ import TableHeroItems from './TableHeroItems.svelte';
     },
   ];
 
-  const handleClickRow = (e) => {
-    console.log(e.detail.row);
+  const handleClickRow = (e, team) => {
+    console.log(team);
+    const row = e.detail.row;
+    if (!row.$expanded) {
+      if (team === 'radiant') {
+        radiantExpandedRows = [...radiantExpandedRows, row.unitLocalized];
+      } else {
+        direExpandedRows = [...direExpandedRows, row.unitLocalized];
+      }
+    } else {
+      if (team === 'radiant') {
+        radiantExpandedRows = radiantExpandedRows.filter(
+          (unitLocalized) => unitLocalized !== row.unitLocalized,
+        );
+      } else {
+        direExpandedRows = direExpandedRows.filter(
+          (unitLocalized) => unitLocalized !== row.unitLocalized,
+        );
+      }
+    }
   };
 
   const returnToReplays = () => {
@@ -105,24 +132,32 @@ import TableHeroItems from './TableHeroItems.svelte';
 <div class="tableContainer tableContainerRadiant">
   <div class="tableName">Radiant</div>
   <SvelteTable
-    on:clickRow={handleClickRow}
+    on:clickRow={(e) => handleClickRow(e, 'radiant')}
     classNameRow="tableRow"
     classNameThead="tableHeader"
     classNameTable="table"
     columns={cols}
     rows={rows.slice(0, 5)}
-  />
+    expandRowKey="unitLocalized"
+    bind:expanded={radiantExpandedRows}
+  >
+    <svelte:fragment slot="expanded" let:row>{row.kills}</svelte:fragment>
+  </SvelteTable>
 </div>
 <div class="tableContainer tableContainerDire">
   <div class="tableName">Dire</div>
   <SvelteTable
-    on:clickRow={handleClickRow}
+    on:clickRow={(e) => handleClickRow(e, 'dire')}
     classNameRow="tableRow"
     classNameThead="tableHeader"
     classNameTable="table"
     columns={cols}
     rows={rows.slice(-5)}
-  />
+    expandRowKey="unitLocalized"
+    bind:expanded={direExpandedRows}
+  >
+    <svelte:fragment slot="expanded" let:row>{row.kills}</svelte:fragment>
+  </SvelteTable>
 </div>
 
 <style>
@@ -170,6 +205,8 @@ import TableHeroItems from './TableHeroItems.svelte';
     text-align: left;
     overflow-x: auto;
     display: block;
+    max-height: 971px;
+    overflow-y: auto;
   }
 
   .tableContainer {

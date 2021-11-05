@@ -42,6 +42,10 @@ export class MatchesService {
     processedMatchDetails.EndGameItems = this.trimAndProcessItems(
       parsedData['CONSTANT_ITEM'].slice(200),
     );
+    processedMatchDetails.Kills = parsedData['DOTA_COMBATLOG_DEATH'];
+    processedMatchDetails.pvpKills = this.getpvpKills(
+      parsedData['DOTA_COMBATLOG_DEATH'],
+    );
 
     return processedMatchDetails;
   }
@@ -57,6 +61,15 @@ export class MatchesService {
   getLast10Intervals(intervals: any[]) {
     const last10Intervals = intervals.slice(-10);
     return last10Intervals;
+  }
+
+  getpvpKills(kills) {
+    kills = kills.filter((kill) => kill.ispvpkill);
+    for (const kill of kills) {
+      kill.attackername = kill.attackername.replace('npc_dota_hero_', '');
+      kill.targetname = kill.targetname.replace('npc_dota_hero_', '');
+    }
+    return kills;
   }
 
   trimAndProcessItems(items) {
