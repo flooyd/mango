@@ -81,6 +81,12 @@ export class MatchesService {
         case 'spiritbreaker':
           item.targetname = 'spirit_breaker';
           continue;
+        case 'spiritbreaker':
+          item.targetname = 'spirit_breaker';
+          continue;
+        case 'skeletonking':
+          item.targetname = 'skeleton_king';
+          continue;
         default:
           continue;
       }

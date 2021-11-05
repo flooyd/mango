@@ -11,7 +11,10 @@ async function bootstrap() {
   });
 
   await app.listen(8080);
-  const pathToFile = path.join(__dirname, '../../odotaparser/stats-0.1.0.jar');
+  const pathToFile = path.join(
+    __dirname,
+    '../../packagedParser/stats-0.1.0.jar',
+  );
   const odotaparser = spawn('java', ['-jar', pathToFile]);
   odotaparser.stdout.on('data', (data) => console.log(data.toString()));
   odotaparser.stderr.on('data', (data) => console.log(data.toString()));
