@@ -159,6 +159,7 @@
     padding-bottom: 13px;
     border: none;
     min-width: 150px;
+    text-align: left;
   }
 
   :global(.tableRow:hover) {
