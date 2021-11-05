@@ -26,10 +26,15 @@
   .kill {
     display: flex;
     align-items: center;
-    border: 1px solid #333;
+    width: 100px;
     padding: 8px;
     margin-right: 13px;
-    color: #333;
+    color:white;
+  }
+
+  .kill:hover{
+    color: white;
+    background: #333;
   }
 
   img, .attack {

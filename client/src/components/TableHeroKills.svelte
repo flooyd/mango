@@ -14,10 +14,13 @@
 <style>
   .kills {
     border-top: 2px solid #333;
-    padding: 13px 0px;
+    padding: 5px 0px;
     padding-left: 13px;
     min-height: 50px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    background: #333;
+    max-width: 100%;
   }
 </style>

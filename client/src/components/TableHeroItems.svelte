@@ -14,6 +14,7 @@ import Item from "./Item.svelte";
 <style>
   .items {
     min-width: 288px;
+    max-width: 288px;
   }
 </style>
 
