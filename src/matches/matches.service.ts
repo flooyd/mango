@@ -106,6 +106,12 @@ export class MatchesService {
         case 'ancientapparition':
           item.targetname = 'ancient_apparition';
           continue;
+        case 'phantomassassin':
+          item.targetname = 'phantom_assassin';
+          continue;
+        case 'monkeyking':
+          item.targetname = 'monkey_king';
+          continue;
         default:
           continue;
       }
