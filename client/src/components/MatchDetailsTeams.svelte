@@ -95,7 +95,6 @@
   const handleClickRow = (e, team) => {
     console.log(e)
     const row = e.detail.row;
-    window.scroll({top: e.detail.event.clientY + 51})
     if (!row.$expanded) {
       if (team === 'radiant') {
         radiantExpandedRows = [...radiantExpandedRows, row.unitLocalized];
