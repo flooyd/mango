@@ -1,7 +1,11 @@
 <script>
+  import selectedHero from '../stores/selectedHero';
   import selectedMatch from '../stores/selectedMatch';
 
-  const handleClickTitle = () => $selectedMatch = null;
+  const handleClickTitle = () => {
+    $selectedMatch = null;
+    $selectedHero = null;
+  };
 </script>
 
 <header>
@@ -26,7 +30,8 @@
     font-weight: 400;
   }
 
-  .about:hover, .title:hover {
+  .about:hover,
+  .title:hover {
     color: blue;
     cursor: pointer;
   }

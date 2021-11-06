@@ -55,6 +55,13 @@
       renderComponent: TableHero,
     },
     {
+      key: 'level',
+      title: 'LVL',
+      value: (v) => v.level,
+      class: 'tableCell',
+      headerClass: 'tableCell',
+    },
+    {
       key: 'kda',
       title: 'K / D / A',
       value: (v) => v.kills + ' / ' + v.deaths + ' / ' + v.assists + (v.firstblood_claimed === 1 ? ' - FB' : ''),

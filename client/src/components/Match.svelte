@@ -41,10 +41,6 @@
       <div class="endDate">
         {`Ended ${matchSummary.endDateObject.endDate} at ${matchSummary.endDateObject.endTime}`}
       </div>
-      <div class="kills">
-        Radiant: {matchSummary.radiantKills} kills | Dire: {matchSummary.direKills}
-        kills
-      </div>
       <Players players={matchSummary.valvePlayers} />
     {/if}
   </div>

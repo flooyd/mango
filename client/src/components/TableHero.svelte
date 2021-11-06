@@ -1,16 +1,21 @@
 <script lang="ts">
+  import selectedHero from '../stores/selectedHero';
   export let row;
   export let col;
-  const heroClass = row.slot > 4 ? 'direHero' : 'radiantHero';
-  const lastRadiant = row.slot === 4 ? 'lastRadiant' : '';
+
+  const handleHeroClick = () => {
+    $selectedHero = row;
+    console.log($selectedHero)
+  }
 </script>
 
-<div class={`tableHero ${lastRadiant}`}>
+<div class='tableHero'>
   <img
+    on:click={handleHeroClick}
     alt={row.unitValve}
     src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${row.unitValve}.png`}
   />
-  <div class={heroClass}>{row.unitLocalized}</div>
+  <div class='hero'>{row.unitLocalized}</div>
 </div>
 
 <style>
@@ -22,10 +27,7 @@
     height: 36px;
     margin-right: 13px;
   }
-  .direHero {
-    display: inline-block;
-  }
-  .radiantHero {
+  .hero {
     display: inline-block;
   }
 </style>
