@@ -67,8 +67,6 @@
   }
   .special:hover {
     cursor: pointer;
-    background: #333;
-    border-color: white;
-    color: white;
+    background: #ccc;
   }
 </style>

@@ -16,7 +16,6 @@
   let radiantExpandedRows = [];
 
   for (const row of rows) {
-    console.log(row);
     row.unitValve = '';
     if (row.slot < 5) {
       row.unitValve = matchSummary[`radiantHero${row.slot}`].replace(
@@ -84,17 +83,12 @@
       class: 'tableCell',
       headerClass: 'tableCell',
     },
-    {
-      key: 'firstblood',
-      title: 'First Blood?',
-      value: (v) => (v.firstblood_claimed === 1 ? 'True' : ''),
-      class: 'tableCell',
-      headerClass: 'tableCell',
-    },
   ];
 
   const handleClickRow = (e, team) => {
+    console.log(e)
     const row = e.detail.row;
+    window.scroll({top: e.detail.event.clientY + 51})
     if (!row.$expanded) {
       if (team === 'radiant') {
         radiantExpandedRows = [...radiantExpandedRows, row.unitLocalized];

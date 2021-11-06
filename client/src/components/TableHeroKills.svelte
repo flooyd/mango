@@ -20,7 +20,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    background: #333;
+    background: #ccc;
     max-width: 100%;
   }
 </style>

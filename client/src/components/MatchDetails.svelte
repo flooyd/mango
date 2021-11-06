@@ -75,7 +75,7 @@ import MatchDetailsTeams from './MatchDetailsTeams.svelte';
     overflow-y: scroll;
     table-layout: fixed;
     margin: 0 auto;
-    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .tableContainer .tableName {
@@ -93,7 +93,6 @@ import MatchDetailsTeams from './MatchDetailsTeams.svelte';
     margin-bottom: 13px;
     overflow-x: auto;
     padding-left: 13px;
-    max-width: 1200px;
   }
 
   :global(.tableContainerRadiant) {
