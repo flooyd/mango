@@ -42,7 +42,7 @@ import MatchHeader from './MatchHeader.svelte';
     padding-left: 0px;
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 13px;
+    margin-bottom: 25px;
     overflow-x: auto;
     padding-left: 13px;
   }

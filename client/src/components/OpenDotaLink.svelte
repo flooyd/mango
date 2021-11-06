@@ -10,4 +10,8 @@
   a {
     text-decoration: none;
   }
+
+  a:visited {
+    color: blue;
+  }
 </style>
