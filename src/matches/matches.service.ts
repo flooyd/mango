@@ -46,6 +46,7 @@ export class MatchesService {
     processedMatchDetails.pvpKills = this.getpvpKills(
       parsedData['DOTA_COMBATLOG_DEATH'],
     );
+    processedMatchDetails.Chat = parsedData['chat'];
 
     return processedMatchDetails;
   }
