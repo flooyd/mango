@@ -1,22 +1,22 @@
 <script lang="ts">
   import selectedHero from '../stores/selectedHero';
-import HeroDetails from './HeroDetails.svelte';
+  import HeroDetails from './HeroDetails.svelte';
   import MatchDetailsTeams from './MatchDetailsTeams.svelte';
-import MatchHeader from './MatchHeader.svelte';
+  import MatchHeader from './MatchHeader.svelte';
 </script>
 
-<MatchHeader/>
+<MatchHeader />
 {#if !$selectedHero}
-<div class="tableContainer tableContainerRadiant">
-  <div class="tableName">Radiant</div>
-  <MatchDetailsTeams team="radiant" />
-</div>
-<div class="tableContainer tableContainerDire">
-  <div class="tableName">Dire</div>
-  <MatchDetailsTeams team="dire" />
-</div>
+  <div class="tableContainer tableContainerRadiant">
+    <div class="tableName">Radiant</div>
+    <MatchDetailsTeams team="radiant" />
+  </div>
+  <div class="tableContainer tableContainerDire">
+    <div class="tableName">Dire</div>
+    <MatchDetailsTeams team="dire" />
+  </div>
 {:else}
-   <HeroDetails/>
+  <HeroDetails />
 {/if}
 
 <style>

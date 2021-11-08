@@ -93,7 +93,6 @@
   ];
 
   const handleClickRow = (e, team) => {
-    console.log(e)
     const row = e.detail.row;
     if (!row.$expanded) {
       if (team === 'radiant') {
