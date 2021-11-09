@@ -7,8 +7,7 @@
     $selectedHero = row;
     console.log($selectedHero)
   }
-
-  $selectedHero = row;
+  //if(row.slot == 0) $selectedHero = row;
 </script>
 
 <div class='tableHero'>

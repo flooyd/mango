@@ -1,22 +1,15 @@
 <script>
-import { onMount } from "svelte";
-
+  import { onMount } from 'svelte';
+  import util from '../util/util'
 
   export let kill;
 
-  const baseSteamStatic =
-    'https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/heroes/icons/';
-  const baseSteamStaticAbilities =
-    'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/';
-  const baseSteamStaticItems =
-    'https://steamcdn-a.akamaihd.net/apps/dota2/images/items/';
-
   const inflictorIsAttack = kill.inflictor === 'dota_unknown';
   const inflictorIsItem = kill.inflictor.includes('item');
-  
-  const handleClickKill = () => {
-    console.log(kill);
-  }
+
+  const {baseSteamStatic, baseSteamStaticAbilities, baseSteamStaticItems} = util;
+
+  const handleClickKill = () => console.log('kill');
 </script>
 
 <div class="kill" on:click={handleClickKill}>

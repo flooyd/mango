@@ -45,6 +45,7 @@
       (kill) => kill.attackername === row.unitValve,
     );
   }
+  matchDetails.rows = rows;
   const cols = [
     {
       key: 'unitLocalized',

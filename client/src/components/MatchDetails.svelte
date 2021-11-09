@@ -37,14 +37,12 @@
 
   .tableContainer {
     border-radius: 4px;
-    padding-top: 10px;
     padding: 13px;
-    padding-left: 0px;
+    padding-left: 13px;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 25px;
     overflow-x: auto;
-    padding-left: 13px;
   }
 
   :global(.tableContainerRadiant) {
