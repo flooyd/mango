@@ -3,6 +3,7 @@
 
   import selectedHero from '../stores/selectedHero';
   import selectedMatch from '../stores/selectedMatch';
+  import dotaWindow from '../stores/dotaWindow';
 
   const handleClickTitle = () => {
     $selectedMatch = null;
@@ -14,22 +15,22 @@
     const status = response.json();
   }
 
-  let dotaWindow = null;
-
   onMount(async () => {
     const response = await fetch(`http://localhost:8080/navigation/get-window`);
-    dotaWindow = await response.json();
+    const dotaWindowJson = await response.json();
+    console.log('hi');
+    $dotaWindow = dotaWindowJson;
   });
 </script>
 
 <header>
   <div on:click={handleClickTitle} class="title">Dota Replays</div>
-  {#if dotaWindow && dotaWindow.status === 'ok'}
+  {#if $dotaWindow && $dotaWindow.status === 'ok'}
     <div class="dota2Window">
       <div>Dota 2 is running - Main Menu</div>
       <button on:click={handleClickBringToTop}>Bring to top</button>
     </div>
-  {:else if dotaWindow && dotaWindow.status === 'no dota'}
+  {:else if $dotaWindow && $dotaWindow.status === 'no dota'}
     <div>Dota 2 is not running.</div>
   {/if}
 </header>

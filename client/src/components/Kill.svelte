@@ -9,7 +9,11 @@
 
   const {baseSteamStatic, baseSteamStaticAbilities, baseSteamStaticItems} = util;
 
-  const handleClickKill = () => console.log('kill');
+  const handleClickKill = async () => {
+    const response = await fetch(`http://localhost:8080/navigation/goto-tick/${kill.currentTick}`);
+    const json = await response.json();
+    console.log(json);
+  };
 </script>
 
 <div class="kill" on:click={handleClickKill}>

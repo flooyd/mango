@@ -1,7 +1,8 @@
 <script>
   import selectedMatch from '../stores/selectedMatch';
   import selectedHero from '../stores/selectedHero';
-import OpenDotaLink from './OpenDotaLink.svelte';
+  import OpenDotaLink from './OpenDotaLink.svelte';
+  import dotaWindow from '../stores/dotaWindow';
   const { matchSummary } = $selectedMatch;
 
   const returnToReplays = () => {
@@ -11,13 +12,18 @@ import OpenDotaLink from './OpenDotaLink.svelte';
   const returnToDetails = () => {
     $selectedHero = null;
   };
+
+  const handleOpenReplay = async () => {
+    const response = await fetch(`http://localhost:8080/navigation/open-replay/${matchSummary.match_id}`);
+    const json = await response.json();
+  }
 </script>
 
 {#if !$selectedHero}
-  <h1 class="title">Match Details - <OpenDotaLink/></h1>
+  <h1 class="title">Match Details - <OpenDotaLink /></h1>
 {:else}
   <h1 class="title">
-    Hero Details - {$selectedHero.unitLocalized} - <OpenDotaLink/>
+    Hero Details - {$selectedHero.unitLocalized} - <OpenDotaLink />
   </h1>
 {/if}
 <div class="summary">
@@ -34,6 +40,9 @@ import OpenDotaLink from './OpenDotaLink.svelte';
     <button on:click={returnToReplays}>Return to replays</button>
   {:else}
     <button on:click={returnToDetails}>Return to match details</button>
+  {/if}
+  {#if $dotaWindow && $dotaWindow.status === 'ok'}
+    <button on:click={handleOpenReplay}>Open Replay in Dota 2</button>
   {/if}
 </div>
 
@@ -70,6 +79,7 @@ import OpenDotaLink from './OpenDotaLink.svelte';
     padding: 8px;
     display: flex;
     align-items: center;
+    margin-right: 13px;
   }
 
   .summary button:hover {

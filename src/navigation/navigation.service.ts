@@ -7,6 +7,7 @@ export class NavigationService {
   private dota2Window: any = null;
   constructor() {
     this.dota2Window = null;
+    robotjs.setKeyboardDelay(1);
   }
 
   getDota2Window() {
@@ -45,6 +46,38 @@ export class NavigationService {
 
   close() {
     console.log('hi');
+    return HttpStatus.OK;
+  }
+
+  openReplay(matchId: string) {
+    this.dota2Window.bringToTop();
+    setTimeout(() => {
+      robotjs.keyTap('f6');
+      setTimeout(() => {
+        robotjs.keyTap('a', ['control']);
+        robotjs.keyTap('backspace');
+        robotjs.typeStringDelayed(`playdemo replays/${matchId}`, 1000);
+        robotjs.keyTap('enter');
+        robotjs.keyTap('f6');
+      }, 500);
+    }, 500);
+
+    return HttpStatus.OK;
+  }
+
+  gotoTick(tick: number) {
+    this.dota2Window.bringToTop();
+    setTimeout(() => {
+      robotjs.keyTap('f6');
+      setTimeout(() => {
+        robotjs.keyTap('a', ['control']);
+        robotjs.keyTap('backspace');
+        robotjs.typeStringDelayed(`demo_gototick ${tick - 150}`, 1000);
+        robotjs.keyTap('enter');
+        robotjs.keyTap('f6');
+      }, 500);
+    }, 500);
+
     return HttpStatus.OK;
   }
 }
