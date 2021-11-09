@@ -30,10 +30,12 @@
     "concurrently": "^6.3.0",
     "ndjson": "^2.0.0",
     "ndjson-rxjs": "^1.0.0",
+    "node-window-manager": "^2.2.4",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.2",
     "rimraf": "^3.0.2",
+    "robotjs": "^0.6.0",
     "rxjs": "^7.2.0",
     "typeorm": "^0.2.38"
   },

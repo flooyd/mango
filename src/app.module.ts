@@ -8,6 +8,8 @@ import { MatchesController } from './matches/matches.controller';
 import { MatchesService } from './matches/matches.service';
 import { MatchDetails } from './Entities/matchdetails.entity';
 import { MatchSummary } from './Entities/matchsummary.entity';
+import { NavigationController } from './navigation/navigation.controller';
+import { NavigationService } from './navigation/navigation.service';
 
 @Module({
   imports: [
@@ -15,7 +17,12 @@ import { MatchSummary } from './Entities/matchsummary.entity';
     TypeOrmModule.forFeature([MatchDetails]),
     TypeOrmModule.forFeature([MatchSummary]),
   ],
-  controllers: [AppController, ReplaysController, MatchesController],
-  providers: [AppService, ReplaysService, MatchesService],
+  controllers: [
+    AppController,
+    ReplaysController,
+    MatchesController,
+    NavigationController,
+  ],
+  providers: [AppService, ReplaysService, MatchesService, NavigationService],
 })
 export class AppModule {}

@@ -15,9 +15,8 @@ async function bootstrap() {
     __dirname,
     '../../packagedParser/stats-0.1.0.jar',
   );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const odotaparser = spawn('java', ['-jar', pathToFile]);
-  odotaparser.stdout.on('data', (data) => console.log(data.toString()));
-  odotaparser.stderr.on('data', (data) => console.log(data.toString()));
 }
 
 bootstrap();
