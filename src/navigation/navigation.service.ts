@@ -22,10 +22,6 @@ export class NavigationService {
       window.path.includes('dota2.exe'),
     );
 
-    const testWindow = windows.find((window) => {
-      window.path.includes('dota2.exe');
-    });
-
     if (this.dota2Window) {
       return {
         status: 'ok',
