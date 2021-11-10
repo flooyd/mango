@@ -56,6 +56,7 @@
   .kill:hover {
     color: white;
     background: #333;
+    cursor: pointer;
   }
 
   img,
