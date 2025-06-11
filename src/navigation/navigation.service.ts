@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { windowManager } from 'node-window-manager';
 import * as robotjs from 'robotjs';
-import ncp from 'copy-paste';
+import * as ncp from 'copy-paste';
 
 @Injectable()
 export class NavigationService {
@@ -13,7 +13,7 @@ export class NavigationService {
 
   getDota2Window() {
     const windows = windowManager.getWindows();
-    const uniquePaths = [];
+    const uniquePaths: string[] = [];
 
     for (const window of windows) {
       if (!uniquePaths.includes(window.path)) uniquePaths.push(window.path);
@@ -49,13 +49,13 @@ export class NavigationService {
   async openReplay(matchId: string) {
     this.dota2Window.bringToTop();
     ncp.copy(`playdemo replays/${matchId}`, () => {
-      robotjs.keyTap('f6');
+      robotjs.keyTap('\\');
       setTimeout(() => {
         robotjs.keyTap('a', ['control']);
         robotjs.keyTap('backspace');
         robotjs.keyTap('v', ['control']);
         robotjs.keyTap('enter');
-        robotjs.keyTap('f6');
+        robotjs.keyTap('\\');
       }, 500);
     });
 
@@ -65,12 +65,12 @@ export class NavigationService {
   gotoTick(tick: number) {
     this.dota2Window.bringToTop();
     ncp.copy(`demo_gototick ${tick - 150}`, () => {
-      robotjs.keyTap('f6');
+      robotjs.keyTap('\\');
       robotjs.keyTap('a', ['control']);
       robotjs.keyTap('backspace');
       robotjs.keyTap('v', ['control']);
       robotjs.keyTap('enter');
-      robotjs.keyTap('f6');
+      robotjs.keyTap('\\');
     });
 
     return HttpStatus.OK;

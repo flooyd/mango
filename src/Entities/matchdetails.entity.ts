@@ -4,11 +4,11 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('match_details')
 export class MatchDetails {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  match_id: string;
+  match_id!: string;
 
   @Column()
-  match_content: string;
+  match_content!: string;
 }

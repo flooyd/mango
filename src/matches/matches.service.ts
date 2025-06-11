@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MatchDetails } from 'src/Entities/matchdetails.entity';
-import { MatchSummary } from 'src/Entities/matchsummary.entity';
-import { ReplaysService } from 'src/replays/replays.service';
+import { MatchDetails } from '../Entities/matchdetails.entity';
+import { MatchSummary } from '../Entities/matchsummary.entity';
+import { ReplaysService } from '../replays/replays.service';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -17,8 +17,12 @@ export class MatchesService {
 
   async getMatchDetails(matchId: string) {
     const matchDetails = await this.matchDetailsRepo.findOne({
-      match_id: matchId,
+      where: { match_id: matchId },
     });
+
+    if (!matchDetails) {
+      throw new Error(`Match with ID ${matchId} not found`);
+    }
 
     const matchContent = matchDetails.match_content.toString();
     const matchContentArray = matchContent.split('\n');
@@ -40,20 +44,19 @@ export class MatchesService {
     processedMatchDetails.Stats = parsedData['DOTA_COMBATLOG_PLAYERSTATS'];
     processedMatchDetails.Intervals = parsedData['interval'];
     processedMatchDetails.EndGameItems = this.trimAndProcessItems(
-      parsedData['CONSTANT_ITEM'].slice(200),
-    );
+      parsedData['CONSTANT_ITEM']);
     processedMatchDetails.Kills = parsedData['DOTA_COMBATLOG_DEATH'];
     processedMatchDetails.pvpKills = this.getpvpKills(
       parsedData['DOTA_COMBATLOG_DEATH'],
     );
     processedMatchDetails.Chat = parsedData['chat'];
-
+    console.log('processedMatchDetails.Chat');
     return processedMatchDetails;
   }
 
   async getMatchSummary(matchId: string) {
     const matchSummary = await this.matchSummaryRepo.findOne({
-      match_id: matchId,
+      where: { match_id: matchId },
     });
 
     return matchSummary;
@@ -64,7 +67,7 @@ export class MatchesService {
     return last10Intervals;
   }
 
-  getpvpKills(kills) {
+  getpvpKills(kills: any[]) {
     kills = kills.filter((kill) => kill.ispvpkill);
     for (const kill of kills) {
       kill.attackername = kill.attackername.replace('npc_dota_hero_', '');
@@ -73,7 +76,8 @@ export class MatchesService {
     return kills;
   }
 
-  trimAndProcessItems(items) {
+  trimAndProcessItems(items: any[]) {
+    console.log('trimAndProcessItems called');
     const endGameTime = items[items.length - 1].time;
     const trimmedItems = items.filter((item) => item.time === endGameTime);
     for (const item of trimmedItems) {
@@ -95,9 +99,6 @@ export class MatchesService {
         case 'spiritbreaker':
           item.targetname = 'spirit_breaker';
           continue;
-        case 'spiritbreaker':
-          item.targetname = 'spirit_breaker';
-          continue;
         case 'skeletonking':
           item.targetname = 'skeleton_king';
           continue;
@@ -112,6 +113,30 @@ export class MatchesService {
           continue;
         case 'monkeyking':
           item.targetname = 'monkey_king';
+          continue;
+        case 'trollwarlord':
+          item.targetname = 'troll_warlord';
+        case 'facelessvoid':
+          console.log('facelessvoid');
+          item.targetname = 'faceless_void';
+          continue;
+        case 'phantomlancer':
+          item.targetname = 'phantom_lancer';
+          continue;
+        case 'stormspirit':
+          item.targetname = 'storm_spirit';
+          continue;
+        case 'emberspirit':
+          item.targetname = 'ember_spirit';
+          continue;
+        case 'earthspirit':
+          item.targetname = 'earth_spirit';
+          continue;
+        case 'drowranger':
+          item.targetname = 'drow_ranger';
+          continue;
+        case 'keeperofthelight':
+          item.targetname = 'keeper_of_the_light'
           continue;
         default:
           continue;

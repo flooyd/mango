@@ -6,7 +6,7 @@
 </script>
 
 <div class="items">
-  {#each row.items as item}
+  {#each row.items || [] as item}
     <Item {item} />
   {/each}
 </div>

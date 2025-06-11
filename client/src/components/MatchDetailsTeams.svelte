@@ -10,6 +10,7 @@
 
   const rows = matchDetails.Last10Intervals;
   const items = matchDetails.EndGameItems;
+  console.log(items);
   const pvpKills = matchDetails.pvpKills;
 
   let direExpandedRows = [];
@@ -40,6 +41,7 @@
         })
         .join(' ');
     }
+    console.log(row.unitValve, row.unitLocalized);
     row.items = items.filter((item) => item.targetname === row.unitValve);
     row.pvpKills = pvpKills.filter(
       (kill) => kill.attackername === row.unitValve,

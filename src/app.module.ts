@@ -13,7 +13,17 @@ import { NavigationService } from './navigation/navigation.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'postgres',
+      database: 'dota2_replays',
+      entities: [MatchDetails, MatchSummary],
+      synchronize: true, // Set to false in production
+      logging: true,
+    }),
     TypeOrmModule.forFeature([MatchDetails]),
     TypeOrmModule.forFeature([MatchSummary]),
   ],
@@ -25,4 +35,4 @@ import { NavigationService } from './navigation/navigation.service';
   ],
   providers: [AppService, ReplaysService, MatchesService, NavigationService],
 })
-export class AppModule {}
+export class AppModule { }

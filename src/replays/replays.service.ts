@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MatchDetails } from 'src/Entities/matchdetails.entity';
+import { MatchDetails } from '../Entities/matchdetails.entity';
 import { Repository } from 'typeorm';
-import bent from 'bent';
-import { MatchSummary } from 'src/Entities/matchsummary.entity';
+const bent = require('bent');
+import { MatchSummary } from '../Entities/matchsummary.entity';
 
 @Injectable()
 export class ReplaysService {
@@ -35,6 +35,7 @@ export class ReplaysService {
       const response = await post('/', file);
       const matchContent = response.toString();
       const matchContentArray = matchContent.split('\n');
+      console.log(matchContentArray);
       const parsedData = await this.myParse(matchContentArray);
       const dataToSaveForSummary: any = {
         match_id: matchId,
@@ -70,11 +71,11 @@ export class ReplaysService {
     }
   }
 
-  getKills(dataToSaveForSummary, parsedData) {
+  getKills(dataToSaveForSummary: { [x: string]: any; }, parsedData: { [x: string]: any; }) {
     let kills = parsedData['DOTA_COMBATLOG_DEATH'];
-    kills = kills.filter((k) => k.attackerhero && k.targethero);
+    kills = kills.filter((k: { attackerhero: any; targethero: any; }) => k.attackerhero && k.targethero);
 
-    let radiantKills = kills.filter((k) => {
+    let radiantKills = kills.filter((k: { attackername: any; }) => {
       if (dataToSaveForSummary['radiantHero0'] === k.attackername) {
         return k;
       }
@@ -92,9 +93,9 @@ export class ReplaysService {
       }
     });
 
-    radiantKills = radiantKills.filter((k) => k.attackername !== k.targetname);
+    radiantKills = radiantKills.filter((k: { attackername: any; targetname: any; }) => k.attackername !== k.targetname);
 
-    let direKills = kills.filter((k) => {
+    let direKills = kills.filter((k: { attackername: any; }) => {
       if (dataToSaveForSummary['direHero0'] === k.attackername) {
         return k;
       }
@@ -112,7 +113,7 @@ export class ReplaysService {
       }
     });
 
-    direKills = direKills.filter((k) => k.attackername !== k.targetname);
+    direKills = direKills.filter((k: { attackername: any; targetname: any; }) => k.attackername !== k.targetname);
 
     return {
       radiantKills,
@@ -140,13 +141,13 @@ export class ReplaysService {
   }
 }
 
-const getMatchInfo = (o) => {
-  o.key = JSON.parse(o.key);
+const getMatchInfo = (o: { key: string; }) => {
+  const parsedKey = JSON.parse(o.key);
 
-  const { playbackTime_, playbackTicks_ } = o.key;
+  const { playbackTime_, playbackTicks_ } = parsedKey as any;
   const { endTime_, gameMode_, gameWinner_, leagueid_, matchId_ } =
-    o.key.gameInfo_.dota_;
-  const players_ = o.key.gameInfo_.dota_.playerInfo_;
+    parsedKey.gameInfo_.dota_;
+  const players_ = parsedKey.gameInfo_.dota_.playerInfo_;
 
   realName(players_);
 
@@ -162,7 +163,7 @@ const getMatchInfo = (o) => {
   };
 };
 
-function realName(players_) {
+function realName(players_: any[]) {
   players_.forEach((p, i, a) => {
     a[i].heroName_ = String.fromCharCode.apply(null, p.heroName_.bytes);
     a[i].playerName_ = String.fromCharCode.apply(null, p.playerName_.bytes);
