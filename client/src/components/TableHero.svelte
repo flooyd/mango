@@ -20,15 +20,32 @@
 </div>
 
 <style>
-  * {
-    color: 333;
+  .tableHero {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
   }
+
   img {
     width: 64px;
     height: 36px;
-    margin-right: 13px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-primary);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
   }
+
+  img:hover {
+    transform: scale(1.05);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 15px rgba(88, 147, 223, 0.4);
+  }
+
   .hero {
     display: inline-block;
+    color: var(--text-primary);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
   }
 </style>

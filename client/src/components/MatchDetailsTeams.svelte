@@ -135,36 +135,52 @@
 <style>
   :global(.tableCell) {
     min-width: 100px;
-    padding-right: 13px;
-    padding-top: 5px;
-    padding-left: 13px;
-    padding-bottom: 5px;
-    color: #333;
-    font-weight: 400;
-    border-top: 2px solid#333;
-    border-right: 2px solid #333;
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--text-primary);
+    font-weight: 600;
+    border-top: 1px solid var(--border-primary);
+    border-right: 1px solid var(--border-secondary);
     display: table-cell;
-    font-weight: bold;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: var(--text-sm);
+    transition: all var(--transition-fast);
   }
 
   :global(.tableCell.kda) {
     max-width: fit-content;
     display: table-cell;
+    color: var(--text-primary);
   }
 
   :global(.tableHero) {
     width: 220px;
+    font-family: 'IBM Plex Sans', sans-serif;
   }
 
   :global(.tableHeader .tableCell) {
-    font-weight: bold;
-    padding-bottom: 13px;
+    font-weight: 700;
+    padding-bottom: var(--spacing-lg);
     border: none;
     min-width: 150px;
     text-align: left;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: var(--text-xs);
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+
+  :global(.tableRow) {
+    transition: all var(--transition-fast);
+    background: transparent;
   }
 
   :global(.tableRow:hover) {
     cursor: pointer;
+    background: var(--bg-tertiary);
+  }
+
+  :global(.tableRow:hover .tableCell) {
+    color: var(--accent-blue);
   }
 </style>

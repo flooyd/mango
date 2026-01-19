@@ -48,60 +48,84 @@
 
 <style>
   .title {
-    font-size: 20px;
-    color: #333;
-    font-weight: bold;
+    font-family: 'Crimson Pro', serif;
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    font-weight: 700;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    margin: 0;
   }
 
   .summary {
-    margin-top: 10px;
-    font-size: 16px;
+    padding: 0 var(--spacing-xl) var(--spacing-lg) var(--spacing-xl);
     display: flex;
     align-items: center;
-    color: #333;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+    animation: fadeIn 0.5s ease-out;
   }
 
   .summary > div {
-    height: 25px;
-    margin-right: 13px;
-    color: #333;
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    font-family: 'JetBrains Mono', monospace;
   }
 
   .summary button {
-    height: 25px;
-    background: white;
-    border: 1px solid #333;
-    color: #333;
-    border-radius: 5px;
-    margin-top: -8px;
-    font-weight: bold;
-    font-size: 16px;
-    padding: 8px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
     display: flex;
     align-items: center;
-    margin-right: 13px;
+    transition: all var(--transition-base);
   }
 
   .summary button:hover {
-    color: white;
-    background: blue;
+    background: var(--accent-blue);
+    color: var(--text-inverse);
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(88, 147, 223, 0.4);
   }
 
   .radiant {
-    color: green !important;
+    color: var(--radiant-accent) !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: var(--text-base) !important;
+    text-shadow: 0 0 15px var(--radiant-glow);
   }
 
   .dire {
-    color: red !important;
-  }
-
-  .radiant,
-  .dire {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    color: var(--dire-accent) !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: var(--text-base) !important;
+    text-shadow: 0 0 15px var(--dire-glow);
   }
 
   .help {
-    font-weight: bold;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-style: italic;
+    font-size: var(--text-xs);
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>

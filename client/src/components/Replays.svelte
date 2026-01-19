@@ -34,17 +34,43 @@
 </div>
 
 <style>
-  .replay {
-    margin-right: 25px;
-  }
   .replays {
     display: flex;
     flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl);
+    animation: fadeIn 0.6s ease-out;
   }
+
+  .replay {
+    min-width: 600px;
+    max-width: 900px;
+  }
+
   div {
-    margin-bottom: 20px;
+    color: var(--text-secondary);
+    font-size: var(--text-lg);
+    line-height: 1.8;
   }
+
   span {
-    font-weight: bold;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--accent-gold);
+    background: var(--bg-elevated);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>

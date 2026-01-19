@@ -21,8 +21,43 @@
 </main>
 
 <style>
+  main {
+    position: relative;
+    min-height: 100vh;
+    z-index: 1;
+  }
+
   .content {
-    padding: 20px;
-    font-size: 20px;
+    padding: var(--spacing-lg);
+    font-size: var(--text-base);
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .content img {
+    display: block;
+    margin: var(--spacing-2xl) auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.02);
+    }
   }
 </style>

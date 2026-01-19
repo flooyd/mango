@@ -28,17 +28,24 @@
 
 <style>
   .players {
-    margin-top: '10px';
+    margin-top: var(--spacing-md);
     display: flex;
     align-items: center;
+    gap: var(--spacing-md);
   }
 
   .vs {
-    margin: 0px 20px;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 900;
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    padding: 0 var(--spacing-lg);
+    letter-spacing: 2px;
   }
 
   .radiant,
   .dire {
     display: flex;
+    gap: var(--spacing-xs);
   }
 </style>

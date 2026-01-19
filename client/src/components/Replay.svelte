@@ -59,14 +59,64 @@
 
 <style>
   .replay {
-    margin-bottom: 20px;
-    border: 3px solid #333;
-    border-radius: 3px;
-    padding: 20px;
-    width: 800px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    min-width: fit-content;
   }
+
+  .replay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--accent-blue) 0%,
+      var(--accent-purple) 50%,
+      var(--accent-blue) 100%
+    );
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .special {
+    border-color: var(--border-secondary);
+  }
+
   .special:hover {
     cursor: pointer;
-    background: #ccc;
+    background: var(--bg-tertiary);
+    border-color: var(--accent-blue);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(88, 147, 223, 0.2);
+  }
+
+  .special:hover::before {
+    opacity: 1;
+  }
+
+  .replay button {
+    margin-top: var(--spacing-md);
+    width: 100%;
+    background: var(--dire-secondary);
+    border-color: var(--dire-accent);
+    color: var(--dire-accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: var(--text-sm);
+  }
+
+  .replay button:hover {
+    background: var(--dire-accent);
+    color: var(--text-inverse);
+    box-shadow: 0 0 20px var(--dire-glow);
   }
 </style>

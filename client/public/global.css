@@ -1,4 +1,7 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* Google Fonts Import - Distinctive Typography */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;400;600;700&family=Crimson+Pro:wght@300;600;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -12,8 +15,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -23,36 +26,294 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
-	border-collapse: initial ;
-  border-spacing: 0;
+	border-collapse: initial;
+	border-spacing: 0;
 }
 
 /* End Reset */
-* {
-  font-family: 'Roboto', sans-serif;
-  box-sizing: border-box;
-  font-size: 16px;
+
+/* Dark Theme CSS Variables */
+:root {
+	/* Base Colors */
+	--bg-primary: #0a0e14;
+	--bg-secondary: #151921;
+	--bg-tertiary: #1f2530;
+	--bg-elevated: #252c39;
+
+	/* Text Colors */
+	--text-primary: #e6e8eb;
+	--text-secondary: #a3a7af;
+	--text-muted: #6b7280;
+	--text-inverse: #0a0e14;
+
+	/* Team Colors - Dark Variants */
+	--radiant-primary: #1a4d2e;
+	--radiant-secondary: #2d7a4f;
+	--radiant-accent: #4ecca3;
+	--radiant-glow: rgba(78, 204, 163, 0.3);
+	--radiant-shadow: rgba(29, 77, 46, 0.5);
+
+	--dire-primary: #4d1a1a;
+	--dire-secondary: #7a2d2d;
+	--dire-accent: #ff6b6b;
+	--dire-glow: rgba(255, 107, 107, 0.3);
+	--dire-shadow: rgba(77, 26, 26, 0.5);
+
+	/* Accent Colors */
+	--accent-blue: #5893df;
+	--accent-purple: #c792ea;
+	--accent-gold: #ffcb6b;
+
+	/* Borders & Shadows */
+	--border-primary: rgba(255, 255, 255, 0.1);
+	--border-secondary: rgba(255, 255, 255, 0.05);
+	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+	--shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+	--shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+	/* Spacing */
+	--spacing-xs: 4px;
+	--spacing-sm: 8px;
+	--spacing-md: 16px;
+	--spacing-lg: 24px;
+	--spacing-xl: 32px;
+	--spacing-2xl: 48px;
+
+	/* Typography Sizes */
+	--text-xs: 12px;
+	--text-sm: 14px;
+	--text-base: 16px;
+	--text-lg: 18px;
+	--text-xl: 24px;
+	--text-2xl: 32px;
+	--text-3xl: 48px;
+
+	/* Transitions */
+	--transition-fast: 150ms ease;
+	--transition-base: 250ms ease;
+	--transition-slow: 400ms ease;
+
+	/* Border Radius */
+	--radius-sm: 4px;
+	--radius-md: 8px;
+	--radius-lg: 12px;
+	--radius-xl: 16px;
 }
-button:hover {
+
+/* Base Styles */
+* {
+	font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+	box-sizing: border-box;
+	font-size: var(--text-base);
+}
+
+html {
+	background: var(--bg-primary);
+}
+
+body {
+	background: var(--bg-primary);
+	color: var(--text-primary);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
+}
+
+/* Atmospheric Background Effect */
+body::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background:
+		radial-gradient(ellipse at 20% 30%, rgba(88, 147, 223, 0.08) 0%, transparent 50%),
+		radial-gradient(ellipse at 80% 70%, rgba(199, 146, 234, 0.06) 0%, transparent 50%);
+	pointer-events: none;
+	z-index: 0;
+}
+
+/* Typography Styles */
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Crimson Pro', serif;
+	font-weight: 600;
+	line-height: 1.2;
+	color: var(--text-primary);
+}
+
+h1 {
+	font-size: var(--text-3xl);
+	font-weight: 900;
+}
+
+h2 {
+	font-size: var(--text-2xl);
+	font-weight: 600;
+}
+
+h3 {
+	font-size: var(--text-xl);
+	font-weight: 600;
+}
+
+/* Monospace for stats and numbers */
+.mono, .stat, .number {
+	font-family: 'JetBrains Mono', monospace;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Button Styles */
+button {
+	background: var(--bg-elevated);
+	color: var(--text-primary);
+	border: 1px solid var(--border-primary);
+	border-radius: var(--radius-md);
+	padding: var(--spacing-sm) var(--spacing-md);
+	font-weight: 600;
+	transition: all var(--transition-base);
 	cursor: pointer;
+	font-family: 'IBM Plex Sans', sans-serif;
+}
+
+button:hover {
+	background: var(--bg-tertiary);
+	border-color: var(--accent-blue);
+	transform: translateY(-1px);
+	box-shadow: var(--shadow-md);
+}
+
+button:active {
+	transform: translateY(0);
+}
+
+/* Link Styles */
+a {
+	color: var(--accent-blue);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+
+a:hover {
+	color: var(--accent-purple);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--bg-elevated);
+	border-radius: var(--radius-md);
+	border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--bg-tertiary);
+}
+
+/* Selection Styling */
+::selection {
+	background: var(--accent-blue);
+	color: var(--text-inverse);
+}
+
+/* Utility Classes */
+.radiant-text {
+	color: var(--radiant-accent);
+}
+
+.dire-text {
+	color: var(--dire-accent);
+}
+
+.text-muted {
+	color: var(--text-muted);
+}
+
+.text-secondary {
+	color: var(--text-secondary);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes glow {
+	0%, 100% {
+		opacity: 0.5;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: -1000px 0;
+	}
+	100% {
+		background-position: 1000px 0;
+	}
+}
+
+/* Utility Animation Classes */
+.fade-in {
+	animation: fadeIn var(--transition-base) ease-out;
+}
+
+.slide-in {
+	animation: slideIn var(--transition-base) ease-out;
 }

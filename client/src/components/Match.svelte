@@ -47,26 +47,50 @@
 </div>
 
 <style>
-  .matchId,
-  .radiant,
-  .dire,
-  .endDate,
-  .kills {
-    margin-bottom: 10px;
-    font-size: 16px;
+  .match {
+    transition: all var(--transition-base);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
   }
 
   .matchId {
-    font-weight: bold;
-    font-size: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
   }
 
   .radiant {
-    color: green;
+    color: var(--radiant-accent);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 15px var(--radiant-glow);
   }
 
   .dire {
-    color: red;
+    color: var(--dire-accent);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 15px var(--dire-glow);
   }
 
+  .endDate {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .kills {
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--text-base);
+  }
 </style>

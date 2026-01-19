@@ -13,14 +13,26 @@
 
 <style>
   .kills {
-    border-top: 2px solid #333;
-    padding: 5px 0px;
-    padding-left: 13px;
+    border-top: 1px solid var(--border-primary);
+    padding: var(--spacing-md);
     min-height: 50px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    background: #ccc;
+    gap: var(--spacing-sm);
+    background: var(--bg-elevated);
     max-width: 100%;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      max-height: 0;
+    }
+    to {
+      opacity: 1;
+      max-height: 500px;
+    }
   }
 </style>
