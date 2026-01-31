@@ -44,23 +44,42 @@ export class ReplaysService {
       for (const player of parsedData.matchInfo.players_) {
         const index = parsedData.matchInfo.players_.indexOf(player);
         if (index < 5) {
-          const key = `radiantHero${index}`;
-          dataToSaveForSummary[key] = player.heroName_;
+          const heroKey = `radiantHero${index}`;
+          const playerKey = `radiantPlayer${index}`;
+          dataToSaveForSummary[heroKey] = player.heroName_;
+          dataToSaveForSummary[playerKey] = player.playerName_;
         } else {
-          const key = `direHero${index - 5}`;
-          dataToSaveForSummary[key] = player.heroName_;
+          const heroKey = `direHero${index - 5}`;
+          const playerKey = `direPlayer${index - 5}`;
+          dataToSaveForSummary[heroKey] = player.heroName_;
+          dataToSaveForSummary[playerKey] = player.playerName_;
         }
       }
 
       dataToSaveForSummary.gameWinner = parsedData.matchInfo.gameWinner_;
       dataToSaveForSummary.endTime = parsedData.matchInfo.endTime_;
+      dataToSaveForSummary.duration = parsedData.matchInfo.playbackTime_;
 
       const kills = this.getKills(dataToSaveForSummary, parsedData);
       dataToSaveForSummary.radiantKills = kills.radiantKills.length;
       dataToSaveForSummary.direKills = kills.direKills.length;
 
+      // Check if match already exists to update instead of insert
+      const existingMatch = await this.matchSummaryRepo.findOne({
+        where: { match_id: matchId },
+      });
+      if (existingMatch) {
+        dataToSaveForSummary.id = existingMatch.id;
+      }
+
       const inserted = await this.matchSummaryRepo.save(dataToSaveForSummary);
+
+      // Check if match details already exist
+      const existingDetails = await this.matchDetailsRepo.findOne({
+        where: { match_id: matchId },
+      });
       await this.matchDetailsRepo.save({
+        id: existingDetails?.id,
         match_id: matchId,
         match_content: matchContent,
       });

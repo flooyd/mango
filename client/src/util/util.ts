@@ -32,10 +32,20 @@ function getGameWinnerObject(winner: number) {
   }
 }
 
+function formatMatchDuration(seconds: number) {
+  if (!seconds || seconds <= 0) return 'Unknown';
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
 export default {
   getValveName,
   getEndDateAndTimeObject,
   getGameWinnerObject,
+  formatMatchDuration,
   baseSteamStatic,
   baseSteamStaticAbilities,
   baseSteamStaticItems,

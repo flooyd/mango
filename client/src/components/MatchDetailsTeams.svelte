@@ -29,6 +29,7 @@
           return name[0].toUpperCase() + name.substring(1);
         })
         .join(' ');
+      row.playerName = matchSummary[`radiantPlayer${row.slot}`] || '';
     } else if (row.slot < 10) {
       row.unitValve = matchSummary[`direHero${row.slot - 5}`].replace(
         'npc_dota_hero_',
@@ -40,6 +41,7 @@
           return name[0].toUpperCase() + name.substring(1);
         })
         .join(' ');
+      row.playerName = matchSummary[`direPlayer${row.slot - 5}`] || '';
     }
     console.log(row.unitValve, row.unitLocalized);
     row.items = items.filter((item) => item.targetname === row.unitValve);

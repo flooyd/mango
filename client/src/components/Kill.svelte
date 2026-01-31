@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import util from '../util/util'
+  import mapTime from '../stores/mapTime';
 
   export let kill;
 
@@ -9,10 +10,16 @@
 
   const {baseSteamStatic, baseSteamStaticAbilities, baseSteamStaticItems} = util;
 
-  const handleClickKill = async () => {
-    const response = await fetch(`http://localhost:8080/navigation/goto-tick/${kill.currentTick}`);
-    const json = await response.json();
-    console.log(json);
+  const handleClickKill = () => {
+    // Fire off Dota client navigation in the background (non-blocking)
+    fetch(`http://localhost:8080/navigation/goto-tick/${kill.currentTick}`, {
+      signal: AbortSignal.timeout(1000) // 1 second timeout
+    }).catch(() => {
+      // Dota client not available or timeout, ignore
+    });
+
+    // Immediately update map time store (jump to kill time and show map)
+    mapTime.set({ time: kill.time, shouldShowMap: true, currentPlaybackTime: kill.time });
   };
 </script>
 

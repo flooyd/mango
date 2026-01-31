@@ -7,6 +7,8 @@
   let error = '';
   let buttonDisabled = false;
   let matchSummary = null;
+  let isHovered = false;
+  let isParsing = false;
 
   onMount(async () => {
     try {
@@ -31,8 +33,10 @@
     matchSummary = matchSummary;
   };
 
-  const parseReplay = async () => {
+  const parseReplay = async (event) => {
+    event.stopPropagation();
     buttonDisabled = true;
+    isParsing = true;
     try {
       const response = await fetch(`http://localhost:8080/replays/${matchId}`, {
         method: 'POST',
@@ -40,20 +44,31 @@
 
       matchSummary = await response.json();
       processMatchSummary();
+      error = '';
 
-      
     } catch (error) {
       console.error(error);
+    } finally {
+      isParsing = false;
+      buttonDisabled = false;
     }
   };
 </script>
 
-<div class={matchSummary ? "replay special" : "replay"}>
+<div
+  class={matchSummary ? "replay special" : "replay"}
+  on:mouseenter={() => isHovered = true}
+  on:mouseleave={() => isHovered = false}
+>
   <Match {matchId} {matchSummary} />
   {#if error && !buttonDisabled}
-    <button on:click={parseReplay}
+    <button class="parseButton" on:click={parseReplay}
       >Parse Replay</button
     >
+  {:else if matchSummary && isHovered}
+    <button class="reparseButton" on:click={parseReplay} disabled={isParsing}>
+      {isParsing ? 'Reparsing...' : 'Reparse'}
+    </button>
   {/if}
 </div>
 
@@ -102,21 +117,68 @@
     opacity: 1;
   }
 
-  .replay button {
+  .parseButton {
     margin-top: var(--spacing-md);
     width: 100%;
     background: var(--dire-secondary);
-    border-color: var(--dire-accent);
+    border: 1px solid var(--dire-accent);
     color: var(--dire-accent);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-size: var(--text-sm);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
   }
 
-  .replay button:hover {
+  .parseButton:hover {
     background: var(--dire-accent);
     color: var(--text-inverse);
     box-shadow: 0 0 20px var(--dire-glow);
+  }
+
+  .reparseButton {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: var(--accent-blue);
+    border: 1px solid var(--accent-blue);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: var(--text-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    z-index: 10;
+    box-shadow: var(--shadow-md);
+    animation: slideInRight 0.2s ease-out;
+  }
+
+  .reparseButton:hover:not(:disabled) {
+    background: var(--accent-purple);
+    border-color: var(--accent-purple);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  }
+
+  .reparseButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 </style>

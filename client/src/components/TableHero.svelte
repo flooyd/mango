@@ -16,7 +16,12 @@
     alt={row.unitValve}
     src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${row.unitValve}.png`}
   />
-  <div class='hero'>{row.unitLocalized}</div>
+  <div class='heroInfo'>
+    <div class='hero'>{row.unitLocalized}</div>
+    {#if row.playerName}
+      <div class='playerName'>{row.playerName}</div>
+    {/if}
+  </div>
 </div>
 
 <style>
@@ -42,10 +47,24 @@
     box-shadow: 0 0 15px rgba(88, 147, 223, 0.4);
   }
 
+  .heroInfo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs, 4px);
+  }
+
   .hero {
     display: inline-block;
     color: var(--text-primary);
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 600;
+  }
+
+  .playerName {
+    display: inline-block;
+    color: var(--text-secondary);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: var(--text-sm, 0.875rem);
+    font-weight: 400;
   }
 </style>

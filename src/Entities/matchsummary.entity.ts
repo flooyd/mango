@@ -39,6 +39,36 @@ export class MatchSummary {
   @Column('varchar')
   direHero4!: string;
 
+  @Column('varchar', { nullable: true, default: '' })
+  radiantPlayer0?: string;
+
+  @Column('varchar', { nullable: true, default: '' })
+  radiantPlayer1?: string;
+
+  @Column('varchar', { nullable: true, default: '' })
+  radiantPlayer2?: string;
+
+  @Column('varchar', { nullable: true, default: '' })
+  radiantPlayer3?: string;
+
+  @Column('varchar', { nullable: true, default: '' })
+  radiantPlayer4?: string;
+
+  @Column('varchar', { nullable: true, default: '' })
+  direPlayer0?: string;
+
+  @Column('varchar', { nullable: true, default: '' })
+  direPlayer1?: string;
+
+  @Column('varchar', { nullable: true, default: '' })
+  direPlayer2?: string;
+
+  @Column('varchar', { nullable: true, default: '' })
+  direPlayer3?: string;
+
+  @Column('varchar', { nullable: true, default: '' })
+  direPlayer4?: string;
+
   @Column('int', { nullable: true, default: 0 })
   gameWinner?: number;
 
@@ -50,4 +80,7 @@ export class MatchSummary {
 
   @Column('varchar', { nullable: true, default: '' })
   endTime?: string;
+
+  @Column('float', { nullable: true, default: 0 })
+  duration?: number;
 }
