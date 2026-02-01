@@ -1,4 +1,4 @@
-# Mango - Dota 2 Replay Navigator ![Mango](https://static.wikia.nocookie.net/dota2_gamepedia/images/7/70/Enchanted_Mango_icon.png/revision/latest/scale-to-width-down/100?cb=20160530170213)
+# Mango - DOTA 2 REPLAY NAVIGATOR ![Mango](https://static.wikia.nocookie.net/dota2_gamepedia/images/7/70/Enchanted_Mango_icon.png/revision/latest/scale-to-width-down/100?cb=20160530170213)
 
 https://youtu.be/4bifPWVjVS4
 
@@ -6,8 +6,7 @@ Browse replays, see scoreboard, kills, etc. and navigate to kills, etc. in realt
 
 ![alt text](https://raw.githubusercontent.com/flooyd/mango/refs/heads/master/client/public/image.png)
 
-
-AI GENERATED DESCRIPTION USING QWEN3-CODER ON CLAUDE CODE WITH OLLAMA. THIS TOOK 30 MINUTES TO GENERATE USING A LOCAL MODEL :(
+# AI GENERATED DESCRIPTION USING QWEN3-CODER ON CLAUDE CODE WITH OLLAMA. THIS TOOK 30 MINUTES TO GENERATE USING A LOCAL MODEL!
 
 Project Description: Mango - Dota 2 Replay Navigator                                                                                                                                                     
   This is a web-based application that allows users to browse, analyze, and navigate through Dota 2 replay files. The application is built with a Node.js/TypeScript backend using NestJS and a Svelte
