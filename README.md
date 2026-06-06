@@ -3,7 +3,7 @@
 [https://youtu.be/4bifPWVjVS4](https://www.youtube.com/watch?v=aTI3RknsNMM)
 
 Browse replays, see scoreboard, kills, etc. and navigate to kills, etc. in realtime using automatic commands sent to the Dota 2 in-game console.
-
+![alt text](https://i.imgur.com/YHHAuUY.png)
 ![alt text](https://raw.githubusercontent.com/flooyd/mango/refs/heads/master/client/public/image.png)
 
 # AI GENERATED DESCRIPTION USING QWEN3-CODER ON CLAUDE CODE WITH OLLAMA. THIS TOOK 30 MINUTES TO GENERATE USING A LOCAL MODEL!
