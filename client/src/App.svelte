@@ -1,8 +1,14 @@
 <script lang="ts">
-  import Header from './components/Header.svelte';
-  import MatchDetails from './components/MatchDetails.svelte';
-  import Replays from './components/Replays.svelte';
+  import { theme } from './stores/theme';
   import selectedMatch from './stores/selectedMatch';
+  import Header from './components/Header.svelte';
+  import Replays from './components/Replays.svelte';
+  import MatchDetails from './components/MatchDetails.svelte';
+
+  // Ensure the persisted theme is reflected on <html> from first paint.
+  $: if (typeof document !== 'undefined') {
+    document.documentElement.setAttribute('data-theme', $theme);
+  }
 </script>
 
 <main>
@@ -10,54 +16,32 @@
   <div class="content">
     {#if !$selectedMatch}
       <Replays />
-    {/if}
-    {#if $selectedMatch && $selectedMatch !== 'loading'}
-      <MatchDetails />
-    {/if}
-    {#if $selectedMatch == 'loading'}
-      <img src="../giphy.gif" alt="loading gif"/>
+    {:else if $selectedMatch === 'loading'}
+      <div class="loading"><span class="spinner"></span> Loading match…</div>
+    {:else}
+      {#key $selectedMatch.matchSummary.match_id}
+        <MatchDetails />
+      {/key}
     {/if}
   </div>
 </main>
 
 <style>
-  main {
-    position: relative;
-    min-height: 100vh;
-    z-index: 1;
+  main { min-height: 100vh; }
+  .content { animation: fadeIn 240ms ease-out; }
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 120px 28px;
+    color: var(--text-3);
+    font-family: var(--mono);
+    font-size: 14px;
   }
-
-  .content {
-    padding: var(--spacing-lg);
-    font-size: var(--text-base);
-    animation: fadeIn 0.5s ease-out;
-  }
-
-  .content img {
-    display: block;
-    margin: var(--spacing-2xl) auto;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 0.8;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.02);
-    }
+  .spinner {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--bg-4); border-top-color: var(--blue);
+    animation: spin 0.9s linear infinite;
   }
 </style>

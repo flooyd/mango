@@ -59,10 +59,16 @@ export class ReplaysService {
       dataToSaveForSummary.gameWinner = parsedData.matchInfo.gameWinner_;
       dataToSaveForSummary.endTime = parsedData.matchInfo.endTime_;
       dataToSaveForSummary.duration = parsedData.matchInfo.playbackTime_;
+      dataToSaveForSummary.gameMode = parsedData.matchInfo.gameMode_;
 
       const kills = this.getKills(dataToSaveForSummary, parsedData);
       dataToSaveForSummary.radiantKills = kills.radiantKills.length;
       dataToSaveForSummary.direKills = kills.direKills.length;
+
+      const netWorth = this.getFinalNetWorth(parsedData['interval']);
+      dataToSaveForSummary.radiantNetWorth = netWorth.radiant;
+      dataToSaveForSummary.direNetWorth = netWorth.dire;
+      dataToSaveForSummary.firstBloodTime = this.getFirstBloodTime(parsedData);
 
       // Check if match already exists to update instead of insert
       const existingMatch = await this.matchSummaryRepo.findOne({
@@ -138,6 +144,39 @@ export class ReplaysService {
       radiantKills,
       direKills,
     };
+  }
+
+  // Sum each side's net worth from the final interval snapshot.
+  // The interval stream emits one entry per player-slot each minute; for every
+  // slot we take its latest entry and total slots 0-4 (radiant) / 5-9 (dire).
+  getFinalNetWorth(intervals: any[]) {
+    const result = { radiant: 0, dire: 0 };
+    if (!intervals || intervals.length === 0) return result;
+
+    const latestBySlot: { [slot: number]: any } = {};
+    for (const entry of intervals) {
+      if (entry.slot == null || entry.networth == null) continue;
+      const prev = latestBySlot[entry.slot];
+      if (!prev || entry.time >= prev.time) {
+        latestBySlot[entry.slot] = entry;
+      }
+    }
+
+    for (const slot of Object.keys(latestBySlot)) {
+      const entry = latestBySlot[slot];
+      if (Number(slot) < 5) result.radiant += entry.networth || 0;
+      else result.dire += entry.networth || 0;
+    }
+    return result;
+  }
+
+  // First blood timestamp in seconds, or null if the match has no first blood.
+  getFirstBloodTime(parsedData: { [x: string]: any }) {
+    const fbEvents = parsedData['DOTA_COMBATLOG_FIRST_BLOOD'];
+    if (fbEvents && fbEvents.length > 0 && fbEvents[0].time != null) {
+      return fbEvents[0].time;
+    }
+    return null;
   }
 
   myParse(opendotaArray: string[]) {

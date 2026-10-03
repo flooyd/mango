@@ -83,4 +83,16 @@ export class MatchSummary {
 
   @Column('float', { nullable: true, default: 0 })
   duration?: number;
+
+  @Column('int', { nullable: true, default: null })
+  gameMode?: number;
+
+  @Column('int', { nullable: true, default: null })
+  radiantNetWorth?: number;
+
+  @Column('int', { nullable: true, default: null })
+  direNetWorth?: number;
+
+  @Column('int', { nullable: true, default: null })
+  firstBloodTime?: number;
 }

@@ -1,24 +1,15 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import dotaWindow from '../stores/dotaWindow';
-  import selectedMatch from '../stores/selectedMatch';
-  import { reparseAllNonce } from '../stores/signals';
-  import { bringToTop } from '../lib/nav';
+  import dotaWindow from '../../stores/dotaWindow'; // <- existing store
   import ThemeToggle from './ThemeToggle.svelte';
   import ProfileChip from './ProfileChip.svelte';
 
-  const APP_VERSION = 'v 0.4.2';
+  export let runningContext: string = 'In Menu';
 
-  $: running = $dotaWindow && $dotaWindow.status === 'ok';
-  // When viewing a match the client is assumed to be watching that replay.
-  $: context = $selectedMatch && $selectedMatch !== 'loading' ? 'Watching Replay' : 'In Menu';
+  $: running = $dotaWindow?.status === 'ok';
 
-  function goHome() {
-    $selectedMatch = null;
-  }
-
-  function handleReparseAll() {
-    reparseAllNonce.update((n) => n + 1);
+  async function bringToTop() {
+    await fetch('http://localhost:8080/navigation/bring-to-top');
   }
 
   onMount(async () => {
@@ -32,30 +23,27 @@
 </script>
 
 <header class="appHeader">
-  <div class="brandWrap" on:click={goHome}>
+  <div class="brandWrap">
     <span class="brand">Dota Replays</span>
-    <span class="version">{APP_VERSION}</span>
+    <span class="version">v 0.4.2</span>
   </div>
-
   <div class="right">
     <div class="status" class:running>
       <span class="dot"></span>
       <span>
         {#if running}
-          Dota 2 running · {context}
+          Dota 2 running · {runningContext}
         {:else}
           Dota 2 not running
         {/if}
       </span>
     </div>
-
     {#if running}
       <button class="btn sm" on:click={bringToTop}>Bring to top</button>
     {/if}
-
-    <div class="vdivider"></div>
+    <div class="divider"></div>
     <ThemeToggle />
-    <ProfileChip on:reparseAll={handleReparseAll} />
+    <ProfileChip />
   </div>
 </header>
 
@@ -68,23 +56,21 @@
     padding: 0 28px;
     background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 100%);
     border-bottom: 1px solid var(--line);
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    position: relative;
+    z-index: 4;
   }
   .appHeader::after {
     content: '';
     position: absolute;
     left: 0; right: 0; bottom: -1px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(93, 169, 233, 0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(93,169,233,0.4), transparent);
     opacity: 0.5;
   }
   .brandWrap {
     display: flex;
     align-items: baseline;
     gap: 12px;
-    cursor: pointer;
   }
   .brand {
     font-family: var(--serif);
@@ -102,7 +88,11 @@
     color: var(--text-3);
     letter-spacing: 0.1em;
   }
-  .right { display: flex; align-items: center; gap: 14px; }
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
   .status {
     font-family: var(--mono);
     font-size: 11px;
@@ -112,7 +102,8 @@
     gap: 8px;
   }
   .status .dot {
-    width: 7px; height: 7px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: var(--text-3);
   }
@@ -121,5 +112,28 @@
     box-shadow: 0 0 0 3px var(--radiant-glow), 0 0 8px var(--radiant-glow);
     animation: pulse 2s ease-in-out infinite;
   }
-  .vdivider { width: 1px; height: 18px; background: var(--line-strong); }
+  @keyframes pulse { 50% { opacity: 0.55; } }
+  .divider {
+    width: 1px;
+    height: 18px;
+    background: var(--line-strong);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--sans);
+    font-weight: 600;
+    background: var(--bg-3);
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    color: var(--text-1);
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+  .btn:hover {
+    background: var(--bg-4);
+    border-color: var(--blue);
+  }
+  .btn.sm { font-size: 11px; padding: 5px 10px; }
 </style>

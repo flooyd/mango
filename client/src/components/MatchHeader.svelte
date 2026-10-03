@@ -1,131 +1,65 @@
-<script>
-  import selectedMatch from '../stores/selectedMatch';
-  import selectedHero from '../stores/selectedHero';
-  import OpenDotaLink from './OpenDotaLink.svelte';
+<script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+  import type { MatchVM } from '../lib/matchVm';
   import dotaWindow from '../stores/dotaWindow';
-  const { matchSummary } = $selectedMatch;
+  import { openReplay } from '../lib/nav';
+  import { fmtDuration, fmtClock, fmtEndDate, gameModeLabel } from '../lib/heroAssets';
+  import Pill from './Pill.svelte';
 
-  const returnToReplays = () => {
-    $selectedMatch = null;
-  };
+  export let match: MatchVM;
 
-  const returnToDetails = () => {
-    $selectedHero = null;
-  };
-
-  const handleOpenReplay = async () => {
-    const response = await fetch(`http://localhost:8080/navigation/open-replay/${matchSummary.match_id}`);
-    const json = await response.json();
-  }
+  const dispatch = createEventDispatcher<{ back: void; reparse: void }>();
+  $: running = $dotaWindow && $dotaWindow.status === 'ok';
+  $: modeLabel = gameModeLabel(match.mode);
 </script>
 
-{#if !$selectedHero}
-  <h1 class="title">Match Details - <OpenDotaLink /></h1>
-{:else}
-  <h1 class="title">
-    Hero Details - {$selectedHero.unitLocalized} - <OpenDotaLink />
-  </h1>
-{/if}
-<div class="summary">
-  <div class={matchSummary.gameWinnerObject.class}>
-    {matchSummary.gameWinnerObject.string}
+<div class="matchHeader">
+  <div class="topLine">
+    <button class="btn ghost" on:click={() => dispatch('back')}>← Back to replays</button>
+    <div class="vdivider"></div>
+    <span class="matchWord serif">Match</span>
+    <Pill variant="blue">{match.matchId}</Pill>
+    <div class="spacer"></div>
+    <button class="btn" on:click={() => dispatch('reparse')}>↻ Reparse</button>
+    {#if running}
+      <button class="btn primary" on:click={() => openReplay(match.matchId)}>Open in Dota 2 →</button>
+    {/if}
   </div>
-  <div>
-    {`Ended ${matchSummary.endDateObject.endDate} at ${matchSummary.endDateObject.endTime}`}
+
+  <div class="summary">
+    <span class="victory" class:rad={match.winner === 'radiant'} class:dire={match.winner === 'dire'}>
+      {match.winner === 'radiant' ? 'RADIANT VICTORY' : 'DIRE VICTORY'}
+    </span>
+    <span class="score">
+      <span style="color: {match.winner === 'radiant' ? 'var(--radiant)' : 'var(--text-2)'};">{match.radScore}</span>
+      <span class="dash">–</span>
+      <span style="color: {match.winner === 'dire' ? 'var(--dire)' : 'var(--text-2)'};">{match.direScore}</span>
+    </span>
+    <div class="vdivider"></div>
+    <Pill variant="blue">{fmtDuration(match.durationSec)}</Pill>
+    {#if modeLabel}<Pill variant="bare">{modeLabel}</Pill>{/if}
+    {#if match.fb != null}<Pill variant="bare"><span class="t-3">FB</span> {fmtClock(match.fb)}</Pill>{/if}
+    <span class="ended">Ended {fmtEndDate(match.endTimeUnix)}</span>
   </div>
-  {#if !$selectedHero}
-    <div class="help">
-      Click hero portrait to see details. Click row to see kills.
-    </div>
-    <button on:click={returnToReplays}>Return to replays</button>
-  {:else}
-    <button on:click={returnToDetails}>Return to match details</button>
-  {/if}
-  {#if $dotaWindow && $dotaWindow.status === 'ok'}
-    <button on:click={handleOpenReplay}>Open Replay in Dota 2</button>
-  {/if}
 </div>
 
 <style>
-  .title {
-    font-family: 'Crimson Pro', serif;
-    font-size: var(--text-xl);
-    color: var(--text-primary);
+  .matchHeader { padding: 24px 28px; border-bottom: 1px solid var(--line); }
+  .topLine { display: flex; align-items: center; gap: 12px; }
+  .vdivider { width: 1px; height: 18px; background: var(--line-strong); }
+  .matchWord { font-size: 26px; font-weight: 700; color: var(--text-1); }
+  .spacer { flex: 1; }
+  .summary { display: flex; align-items: center; gap: 14px; margin-top: 16px; flex-wrap: wrap; }
+  .victory {
+    font-family: var(--mono);
     font-weight: 700;
-    padding: var(--spacing-lg) var(--spacing-xl);
-    margin: 0;
+    font-size: 11px;
+    letter-spacing: 0.16em;
   }
-
-  .summary {
-    padding: 0 var(--spacing-xl) var(--spacing-lg) var(--spacing-xl);
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-lg);
-    flex-wrap: wrap;
-    animation: fadeIn 0.5s ease-out;
-  }
-
-  .summary > div {
-    color: var(--text-secondary);
-    font-size: var(--text-sm);
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .summary button {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-primary);
-    color: var(--text-primary);
-    border-radius: var(--radius-md);
-    font-weight: 600;
-    font-size: var(--text-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    display: flex;
-    align-items: center;
-    transition: all var(--transition-base);
-  }
-
-  .summary button:hover {
-    background: var(--accent-blue);
-    color: var(--text-inverse);
-    border-color: var(--accent-blue);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(88, 147, 223, 0.4);
-  }
-
-  .radiant {
-    color: var(--radiant-accent) !important;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: var(--text-base) !important;
-    text-shadow: 0 0 15px var(--radiant-glow);
-  }
-
-  .dire {
-    color: var(--dire-accent) !important;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: var(--text-base) !important;
-    text-shadow: 0 0 15px var(--dire-glow);
-  }
-
-  .help {
-    color: var(--text-muted);
-    font-weight: 600;
-    font-style: italic;
-    font-size: var(--text-xs);
-    font-family: 'IBM Plex Sans', sans-serif;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  .victory.rad { color: var(--radiant); }
+  .victory.dire { color: var(--dire); }
+  .score { font-family: var(--mono); font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .dash { color: var(--text-3); margin: 0 4px; }
+  .ended { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+  .t-3 { color: var(--text-3); }
 </style>

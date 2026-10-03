@@ -78,6 +78,9 @@ export class MatchesService {
 
   trimAndProcessItems(items: any[]) {
     console.log('trimAndProcessItems called');
+    if (!items || items.length === 0) {
+      return [];
+    }
     const endGameTime = items[items.length - 1].time;
     const trimmedItems = items.filter((item) => item.time === endGameTime);
     for (const item of trimmedItems) {
